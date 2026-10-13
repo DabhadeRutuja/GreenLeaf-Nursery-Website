@@ -1,0 +1,1775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GreenLeaf Nursery 🌿 | Bring Nature Home</title>
+  <meta name="description" content="GreenLeaf Nursery – healthy indoor, outdoor, flowering, succulent and medicinal plants delivered with care." />
+  <!-- Emoji favicon so the browser tab looks nice without an extra file -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>" />
+
+  <!-- Google Fonts: Fraunces (headings) + Nunito Sans (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =========================================================
+       1. DESIGN TOKENS (colors, fonts, radii) – change these to
+          re-theme the whole website in one place
+       ========================================================= */
+    :root {
+      --forest:   #1d3b2a;   /* deepest green: headings, footer */
+      --leaf:     #2f6b45;   /* primary green: buttons, links */
+      --fern:     #4f9a66;   /* lighter green: hovers, accents */
+      --mint:     #e2efe3;   /* pale green tint backgrounds */
+      --cream:    #f7f3e3;   /* page background */
+      --cream-2:  #efe9d0;   /* deeper cream for contrast bands */
+      --white:    #ffffff;
+      --ink:      #26342b;   /* body text */
+      --muted:    #62705f;   /* secondary text */
+      --gold:     #e0a82e;   /* star ratings only */
+      --danger:   #b3412f;   /* form errors */
+
+      --font-head: "Fraunces", Georgia, serif;
+      --font-body: "Nunito Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+      --r-sm: 12px;
+      --r-md: 20px;
+      --r-lg: 28px;
+      --shadow: 0 10px 30px rgba(29, 59, 42, 0.10);
+      --shadow-lg: 0 18px 45px rgba(29, 59, 42, 0.18);
+      --header-h: 72px;
+    }
+
+    /* =========================================================
+       2. BASE / RESET
+       ========================================================= */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 8px); }
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      color: var(--ink);
+      background: var(--cream);
+      line-height: 1.65;
+      font-size: 1.02rem;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
+    h1, h2, h3, h4 { font-family: var(--font-head); color: var(--forest); line-height: 1.15; margin: 0 0 .5em; font-weight: 600; }
+    p { margin: 0 0 1em; }
+    ul { margin: 0; padding: 0; list-style: none; }
+    :focus-visible { outline: 3px solid var(--fern); outline-offset: 3px; border-radius: 6px; }
+
+    .container { width: min(1180px, 92%); margin-inline: auto; }
+    section { padding: 96px 0; }
+    .section-head { max-width: 640px; margin-bottom: 48px; }
+    .section-head.center { margin-inline: auto; text-align: center; }
+    .section-head h2 { font-size: clamp(2rem, 4.2vw, 3rem); }
+    .section-head p { color: var(--muted); font-size: 1.1rem; }
+
+    /* ---------- Buttons ---------- */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+      padding: .85rem 1.7rem; border-radius: 999px; font-weight: 700;
+      transition: transform .25s ease, background .25s ease, box-shadow .25s ease, color .25s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--leaf); color: var(--white); box-shadow: 0 8px 20px rgba(47,107,69,.35); }
+    .btn-primary:hover { background: var(--forest); }
+    .btn-light { background: var(--cream); color: var(--forest); }
+    .btn-light:hover { background: var(--white); }
+    .btn-outline { border: 2px solid rgba(255,255,255,.85); color: var(--white); }
+    .btn-outline:hover { background: var(--white); color: var(--forest); }
+
+    /* =========================================================
+       3. HEADER / NAVIGATION
+       ========================================================= */
+    header {
+      position: fixed; inset: 0 0 auto 0; height: var(--header-h); z-index: 50;
+      background: rgba(247, 243, 227, .88);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(29,59,42,.08);
+      transition: box-shadow .3s ease;
+    }
+    header.scrolled { box-shadow: 0 6px 24px rgba(29,59,42,.10); }
+    .nav { height: var(--header-h); display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .logo { font-family: var(--font-head); font-weight: 700; font-size: 1.45rem; color: var(--forest); display: flex; align-items: center; gap: .5rem; }
+    .logo span.mark { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 12px 4px 12px 4px; background: var(--leaf); font-size: 1.2rem; }
+    .nav-links { display: flex; gap: .3rem; align-items: center; }
+    .nav-links a { padding: .5rem 1rem; border-radius: 999px; font-weight: 600; color: var(--ink); transition: background .2s, color .2s; }
+    .nav-links a:hover { background: var(--mint); }
+    .nav-links a.active { background: var(--leaf); color: var(--white); }
+    .nav-actions { display: flex; align-items: center; gap: .5rem; }
+    .cart-btn { position: relative; display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; background: var(--white); box-shadow: var(--shadow); transition: transform .2s; }
+    .cart-btn:hover { transform: scale(1.08); }
+    .cart-btn svg { width: 22px; height: 22px; stroke: var(--forest); }
+    .cart-count { position: absolute; top: -4px; right: -4px; min-width: 22px; height: 22px; padding: 0 5px; border-radius: 999px; background: var(--leaf); color: var(--white); font-size: .75rem; font-weight: 700; display: grid; place-items: center; }
+    .cart-count.bump { animation: bump .35s ease; }
+    @keyframes bump { 50% { transform: scale(1.4); } }
+    .menu-toggle { display: none; width: 46px; height: 46px; border-radius: 50%; background: var(--white); box-shadow: var(--shadow); place-items: center; }
+    .menu-toggle span, .menu-toggle span::before, .menu-toggle span::after { display: block; width: 20px; height: 2px; background: var(--forest); border-radius: 2px; position: relative; transition: .3s; }
+    .menu-toggle span::before, .menu-toggle span::after { content: ""; position: absolute; left: 0; }
+    .menu-toggle span::before { top: -6px; } .menu-toggle span::after { top: 6px; }
+    .menu-toggle.open span { background: transparent; }
+    .menu-toggle.open span::before { top: 0; transform: rotate(45deg); }
+    .menu-toggle.open span::after  { top: 0; transform: rotate(-45deg); }
+
+    /* =========================================================
+       4. HERO
+       ========================================================= */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center; padding: calc(var(--header-h) + 40px) 0 80px;
+      position: relative; overflow: hidden; color: var(--white);
+      background: var(--forest);            /* solid colour shows if the photo can't load */
+    }
+    /* Large flower photograph behind the hero (an <img> so it can use the image fallback chain) */
+    .hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+    .hero::before { content: ""; position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(100deg, rgba(14,36,24,.9) 0%, rgba(14,36,24,.62) 50%, rgba(14,36,24,.3) 100%); }
+    .hero > .container { position: relative; z-index: 2; }
+    .hero-layout { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: center; }
+    .hero-inner { max-width: 660px; }
+    /* Flower photo collage on the right side of the hero */
+    .hero-collage { position: relative; height: 540px; opacity: 0; animation: rise .9s .35s cubic-bezier(.2,.7,.2,1) forwards; }
+    .hc { position: absolute; overflow: hidden; border: 6px solid rgba(255,255,255,.92); box-shadow: var(--shadow-lg); background: var(--mint); }
+    .hc img { width: 100%; height: 100%; object-fit: cover; }
+    .hc span { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); padding: .25rem .85rem; border-radius: 999px; background: rgba(255,255,255,.92); color: var(--forest); font-weight: 700; font-size: .82rem; white-space: nowrap; }
+    .hc1 { left: 20%; top: 0; width: 50%; height: 80%; border-radius: 999px 999px 28px 28px; }
+    .hc2 { right: 0; top: 38%; width: 38%; aspect-ratio: 1; border-radius: 50%; }
+    .hc3 { left: 0; bottom: 0; width: 40%; aspect-ratio: 1; border-radius: 28px; }
+    .hero h1 { color: var(--white); font-size: clamp(2.8rem, 7.5vw, 5.4rem); letter-spacing: -.02em; margin-bottom: .35em; }
+    .hero p.sub { font-size: clamp(1.1rem, 2vw, 1.3rem); color: #e9f1e6; max-width: 520px; margin-bottom: 2rem; }
+    .hero-btns { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .hero-badges { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2.6rem; }
+    .hero-badges li { padding: .5rem 1.1rem; border-radius: 999px; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.28); backdrop-filter: blur(6px); font-weight: 600; font-size: .92rem; }
+    /* The one orchestrated page-load moment: hero content rises in, one piece after another */
+    .hero-inner > * { opacity: 0; transform: translateY(26px); animation: rise .8s cubic-bezier(.2,.7,.2,1) forwards; }
+    .hero-inner > *:nth-child(2) { animation-delay: .15s; }
+    .hero-inner > *:nth-child(3) { animation-delay: .3s; }
+    .hero-inner > *:nth-child(4) { animation-delay: .45s; }
+    @keyframes rise { to { opacity: 1; transform: none; } }
+
+    /* =========================================================
+       5. CATEGORIES – arched "greenhouse window" cards
+       ========================================================= */
+    .cat-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
+    .cat-card {
+      position: relative; aspect-ratio: 3 / 4.2; overflow: hidden; cursor: pointer; text-align: left;
+      border-radius: 999px 999px var(--r-md) var(--r-md);   /* arch shape */
+      background: var(--mint); box-shadow: var(--shadow); isolation: isolate;
+      transition: transform .35s ease, box-shadow .35s ease;
+    }
+    .cat-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: transform .6s ease; }
+    .cat-card::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, rgba(14,36,24,.88) 8%, rgba(14,36,24,0) 55%); }
+    .cat-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+    .cat-card:hover img { transform: scale(1.08); }
+    .cat-info { position: absolute; left: 0; right: 0; bottom: 0; padding: 1.2rem 1rem 1.3rem; color: var(--white); text-align: center; }
+    .cat-info h3 { color: var(--white); font-size: 1.25rem; margin: 0 0 .1rem; }
+    .cat-info span { font-size: .88rem; opacity: .9; }
+
+    /* =========================================================
+       6. PRODUCT CARDS (used by Featured + Shop)
+       ========================================================= */
+    .featured { background: var(--white); }
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(255px, 1fr)); gap: 26px; }
+    .product-card {
+      background: var(--white); border-radius: var(--r-md); overflow: hidden; box-shadow: var(--shadow);
+      display: flex; flex-direction: column; border: 1px solid rgba(29,59,42,.06);
+      transition: transform .3s ease, box-shadow .3s ease;
+      animation: fadeIn .5s ease both;
+    }
+    .featured .product-card { background: var(--cream); }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .product-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+    .product-img { position: relative; aspect-ratio: 1 / 1; overflow: hidden; background: var(--mint); }
+    .product-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+    .product-card:hover .product-img img { transform: scale(1.07); }
+    .tag { position: absolute; top: 14px; left: 14px; padding: .25rem .8rem; border-radius: 999px; background: rgba(255,255,255,.92); color: var(--leaf); font-size: .8rem; font-weight: 700; }
+    .product-body { padding: 1.2rem 1.3rem 1.4rem; display: flex; flex-direction: column; flex: 1; }
+    .product-body h3 { font-size: 1.2rem; margin-bottom: .3rem; }
+    .product-body p { color: var(--muted); font-size: .94rem; flex: 1; margin-bottom: 1rem; }
+    .product-foot { display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
+    .price { font-family: var(--font-head); font-size: 1.35rem; font-weight: 700; color: var(--leaf); }
+    .add-btn { padding: .6rem 1.15rem; border-radius: 999px; background: var(--leaf); color: var(--white); font-weight: 700; font-size: .92rem; transition: background .2s, transform .2s; }
+    .add-btn:hover { background: var(--forest); transform: scale(1.05); }
+    .add-btn.added { background: var(--fern); }
+
+    /* ---------- Shop toolbar ---------- */
+    .toolbar { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+    .search { position: relative; flex: 1 1 280px; max-width: 420px; }
+    .search input, .sort select {
+      width: 100%; padding: .85rem 1.2rem .85rem 3rem; border-radius: 999px; border: 2px solid transparent; background: var(--white);
+      font: inherit; color: var(--ink); box-shadow: var(--shadow); transition: border-color .2s;
+    }
+    .search input:focus, .sort select:focus { outline: none; border-color: var(--fern); }
+    .search svg { position: absolute; left: 1.05rem; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; stroke: var(--muted); }
+    .sort select { padding-left: 1.2rem; cursor: pointer; }
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; }
+    .chip { padding: .55rem 1.2rem; border-radius: 999px; background: var(--white); font-weight: 700; font-size: .93rem; box-shadow: 0 3px 10px rgba(29,59,42,.07); transition: .2s; }
+    .chip:hover { background: var(--mint); }
+    .chip.active { background: var(--leaf); color: var(--white); }
+    .result-info { color: var(--muted); font-weight: 600; margin-bottom: 18px; }
+    .empty { text-align: center; padding: 56px 20px; background: var(--white); border-radius: var(--r-lg); box-shadow: var(--shadow); }
+    .empty .big { font-size: 3rem; }
+    .empty h3 { margin-bottom: .3em; }
+    .empty p { color: var(--muted); }
+
+    /* =========================================================
+       7. WHY CHOOSE US
+       ========================================================= */
+    .why { background: var(--forest); color: #dcebdc; }
+    .why .section-head h2 { color: var(--white); }
+    .why .section-head p { color: #b9d0bd; }
+    .why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .why-card { padding: 2rem 1.6rem; border-radius: var(--r-md); background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); transition: background .3s, transform .3s; }
+    .why-card:hover { background: rgba(255,255,255,.13); transform: translateY(-5px); }
+    .why-card .ico { width: 56px; height: 56px; display: grid; place-items: center; font-size: 1.7rem; border-radius: 16px 6px 16px 6px; background: var(--cream); margin-bottom: 1.1rem; }
+    .why-card h3 { color: var(--white); font-size: 1.2rem; }
+    .why-card p { margin: 0; font-size: .96rem; }
+
+    /* =========================================================
+       8. ABOUT
+       ========================================================= */
+    .about-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 64px; align-items: center; }
+    .about-media { position: relative; }
+    .about-media .main { border-radius: 220px 220px var(--r-lg) var(--r-lg); aspect-ratio: 4/5; object-fit: cover; width: 100%; box-shadow: var(--shadow-lg); background: var(--mint); }
+    .about-note { position: absolute; right: -18px; bottom: 32px; background: var(--white); padding: 1rem 1.3rem; border-radius: var(--r-md); box-shadow: var(--shadow-lg); max-width: 220px; font-weight: 700; color: var(--forest); }
+    .about-note small { display: block; color: var(--muted); font-weight: 600; }
+    .about-text h2 { font-size: clamp(2rem, 4vw, 2.8rem); }
+    .about-text > p { color: var(--muted); }
+    .pillars { display: grid; gap: 14px; margin-top: 1.6rem; }
+    .pillar { display: flex; gap: 1rem; padding: 1.1rem 1.3rem; background: var(--white); border-radius: var(--r-md); box-shadow: var(--shadow); }
+    .pillar .ico { font-size: 1.6rem; flex-shrink: 0; }
+    .pillar h4 { margin: 0 0 .15rem; font-size: 1.1rem; }
+    .pillar p { margin: 0; color: var(--muted); font-size: .94rem; }
+
+    /* =========================================================
+       9. PLANT CARE GUIDE
+       ========================================================= */
+    .care { background: var(--cream-2); }
+    .care-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .care-card { background: var(--white); border-radius: var(--r-lg); padding: 2rem 1.8rem; box-shadow: var(--shadow); transition: transform .3s, box-shadow .3s; }
+    .care-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+    .care-card .ico { width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center; font-size: 1.8rem; background: var(--mint); margin-bottom: 1rem; }
+    .care-card h3 { font-size: 1.3rem; }
+    .care-card li { position: relative; padding-left: 1.4rem; margin-bottom: .55rem; color: var(--muted); font-size: .96rem; }
+    .care-card li::before { content: "🍃"; position: absolute; left: 0; font-size: .8rem; top: .2rem; }
+
+    /* =========================================================
+       10. REVIEWS
+       ========================================================= */
+    .review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; }
+    .review { background: var(--white); border-radius: var(--r-lg); padding: 2rem 1.8rem; box-shadow: var(--shadow); display: flex; flex-direction: column; }
+    .stars { color: var(--gold); font-size: 1.2rem; letter-spacing: 2px; margin-bottom: .8rem; }
+    .stars .off { color: #d9d4bd; }
+    .review blockquote { margin: 0 0 1.4rem; flex: 1; font-size: 1rem; color: var(--ink); }
+    .reviewer { display: flex; align-items: center; gap: .8rem; }
+    .avatar { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: var(--leaf); color: var(--white); font-family: var(--font-head); font-weight: 700; }
+    .reviewer strong { display: block; color: var(--forest); line-height: 1.2; }
+    .reviewer small { color: var(--muted); }
+
+    /* =========================================================
+       11. CONTACT
+       ========================================================= */
+    .contact { background: var(--mint); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 48px; align-items: start; }
+    .contact-info h2 { font-size: clamp(2rem, 4vw, 2.8rem); }
+    .contact-info > p { color: var(--muted); }
+    .info-list { display: grid; gap: 14px; margin-top: 1.6rem; }
+    .info-list li { display: flex; gap: .9rem; align-items: center; background: var(--white); padding: .95rem 1.2rem; border-radius: var(--r-md); }
+    .info-list .ico { font-size: 1.4rem; }
+    .info-list small { display: block; color: var(--muted); line-height: 1.2; }
+    .sample-note { margin-top: 1rem; font-size: .88rem; color: var(--muted); font-style: italic; }
+    form.contact-form { background: var(--white); padding: 2.2rem; border-radius: var(--r-lg); box-shadow: var(--shadow-lg); }
+    .field { margin-bottom: 1.2rem; }
+    .field label { display: block; font-weight: 700; margin-bottom: .4rem; color: var(--forest); }
+    .field input, .field textarea { width: 100%; padding: .85rem 1.1rem; border-radius: var(--r-sm); border: 2px solid #dfe6da; background: var(--cream); font: inherit; color: var(--ink); transition: border-color .2s, background .2s; }
+    .field textarea { min-height: 140px; resize: vertical; }
+    .field input:focus, .field textarea:focus { outline: none; border-color: var(--fern); background: var(--white); }
+    .field.invalid input, .field.invalid textarea { border-color: var(--danger); }
+    .error { display: none; color: var(--danger); font-size: .87rem; font-weight: 600; margin-top: .35rem; }
+    .field.invalid .error { display: block; }
+    .form-success { display: none; margin-top: 1.2rem; padding: 1rem 1.2rem; border-radius: var(--r-sm); background: var(--mint); color: var(--forest); font-weight: 700; border-left: 5px solid var(--leaf); }
+    .form-success.show { display: block; animation: fadeIn .5s ease; }
+    .contact-form .btn { width: 100%; }
+
+    /* =========================================================
+       12. FOOTER
+       ========================================================= */
+    footer { background: var(--forest); color: #c9dccb; padding: 72px 0 28px; }
+    .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1.2fr 1fr; gap: 40px; }
+    footer .logo { color: var(--white); margin-bottom: 1rem; }
+    footer h4 { color: var(--white); font-size: 1.1rem; }
+    footer li { margin-bottom: .55rem; }
+    footer a:hover { color: var(--white); text-decoration: underline; }
+    .socials { display: flex; gap: .7rem; }
+    .socials a { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; background: rgba(255,255,255,.1); transition: background .2s, transform .2s; }
+    .socials a:hover { background: var(--fern); transform: translateY(-3px); text-decoration: none; }
+    .socials svg { width: 19px; height: 19px; fill: var(--white); }
+    .footer-bottom { margin-top: 48px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,.14); display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; font-size: .9rem; }
+
+    /* =========================================================
+       13. CART DRAWER + TOAST + BACK-TO-TOP
+       ========================================================= */
+    .overlay { position: fixed; inset: 0; background: rgba(14,36,24,.5); backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: opacity .3s; z-index: 90; }
+    .overlay.show { opacity: 1; pointer-events: auto; }
+    .cart-drawer { position: fixed; top: 0; right: 0; height: 100%; width: min(430px, 100%); background: var(--cream); z-index: 100; display: flex; flex-direction: column; transform: translateX(105%); transition: transform .4s cubic-bezier(.2,.7,.2,1); box-shadow: -10px 0 40px rgba(0,0,0,.2); }
+    .cart-drawer.open { transform: none; }
+    .cart-head { display: flex; align-items: center; justify-content: space-between; padding: 1.3rem 1.5rem; border-bottom: 1px solid rgba(29,59,42,.1); }
+    .cart-head h3 { margin: 0; font-size: 1.4rem; }
+    .close-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--white); font-size: 1.3rem; line-height: 1; }
+    .close-btn:hover { background: var(--mint); }
+    .cart-items { flex: 1; overflow-y: auto; padding: 1rem 1.5rem; }
+    .cart-empty { text-align: center; padding: 3rem 1rem; color: var(--muted); }
+    .cart-empty .big { font-size: 3.2rem; }
+    .cart-item { display: grid; grid-template-columns: 74px 1fr auto; gap: 14px; align-items: center; background: var(--white); padding: .8rem; border-radius: var(--r-md); margin-bottom: 12px; }
+    .cart-item img { width: 74px; height: 74px; border-radius: 14px; object-fit: cover; background: var(--mint); }
+    .cart-item h4 { font-family: var(--font-body); font-size: 1rem; margin: 0 0 .15rem; }
+    .cart-item .unit { color: var(--muted); font-size: .88rem; }
+    .qty { display: inline-flex; align-items: center; gap: .55rem; margin-top: .4rem; background: var(--cream); border-radius: 999px; padding: 3px; }
+    .qty button { width: 28px; height: 28px; border-radius: 50%; background: var(--white); font-weight: 700; line-height: 1; }
+    .qty button:hover { background: var(--leaf); color: var(--white); }
+    .qty span { min-width: 20px; text-align: center; font-weight: 700; }
+    .line-end { text-align: right; }
+    .line-total { font-weight: 700; color: var(--leaf); display: block; margin-bottom: .4rem; }
+    .remove { color: var(--danger); font-size: .82rem; font-weight: 700; }
+    .remove:hover { text-decoration: underline; }
+    .cart-foot { padding: 1.3rem 1.5rem 1.6rem; background: var(--white); border-top: 1px solid rgba(29,59,42,.1); }
+    .sum-row { display: flex; justify-content: space-between; margin-bottom: .45rem; color: var(--muted); }
+    .sum-row.total { color: var(--forest); font-weight: 700; font-size: 1.25rem; font-family: var(--font-head); margin-top: .6rem; padding-top: .7rem; border-top: 1px dashed #ccd5c6; }
+    .ship-note { font-size: .85rem; color: var(--leaf); font-weight: 600; margin-bottom: .8rem; }
+    .cart-foot .btn { width: 100%; margin-top: .8rem; }
+    .clear-btn { display: block; margin: .8rem auto 0; color: var(--muted); font-size: .88rem; text-decoration: underline; }
+
+    .toast { position: fixed; left: 50%; bottom: 28px; transform: translate(-50%, 140%); background: var(--forest); color: var(--white); padding: .85rem 1.5rem; border-radius: 999px; box-shadow: var(--shadow-lg); z-index: 120; font-weight: 600; transition: transform .4s cubic-bezier(.2,.7,.2,1); max-width: 92%; text-align: center; }
+    .toast.show { transform: translate(-50%, 0); }
+
+    .to-top { position: fixed; right: 22px; bottom: 22px; width: 48px; height: 48px; border-radius: 50%; background: var(--leaf); color: var(--white); display: grid; place-items: center; box-shadow: var(--shadow-lg); opacity: 0; pointer-events: none; transition: .3s; z-index: 40; font-size: 1.2rem; }
+    .to-top.show { opacity: 1; pointer-events: auto; }
+    .to-top:hover { background: var(--forest); }
+
+    /* =========================================================
+       14. RESPONSIVE BREAKPOINTS
+       ========================================================= */
+    @media (max-width: 1080px) {
+      .cat-grid { grid-template-columns: repeat(3, 1fr); }
+      .why-grid { grid-template-columns: repeat(2, 1fr); }
+      .care-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 860px) {
+      section { padding: 72px 0; }
+      .menu-toggle { display: grid; }
+      /* nav becomes a dropdown panel on tablets and phones */
+      .nav-links {
+        position: absolute; top: var(--header-h); left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0;
+        background: var(--cream); padding: .8rem 4%; box-shadow: 0 16px 30px rgba(29,59,42,.15);
+        transform: translateY(-8px); opacity: 0; pointer-events: none; transition: .3s;
+      }
+      .nav-links.open { transform: none; opacity: 1; pointer-events: auto; }
+      .nav-links a { padding: .9rem 1rem; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-media { max-width: 440px; margin-inline: auto; }
+      .about-note { right: 8px; }
+    }
+    @media (max-width: 600px) {
+      .cat-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      .why-grid, .care-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .hero { min-height: 92vh; }
+      .hero-btns .btn { flex: 1 1 100%; }
+      form.contact-form { padding: 1.5rem; }
+      .product-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+    }
+    /* =========================================================
+       13b. IMAGE UPGRADE: shimmer placeholder, collections, gallery, lightbox
+       ========================================================= */
+    /* soft shimmer shown while a photo is still loading */
+    .product-img { background: linear-gradient(110deg, var(--mint) 30%, #f3f9f2 50%, var(--mint) 70%); background-size: 200% 100%; animation: shimmer 1.6s linear infinite; }
+    @keyframes shimmer { to { background-position: -200% 0; } }
+    img { background-color: var(--mint); }
+
+    /* ---------- Featured collections ---------- */
+    .collections { padding-top: 0; }
+    .collection-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+    .collection { position: relative; aspect-ratio: 3 / 4; border-radius: var(--r-lg); overflow: hidden; text-align: left; isolation: isolate; box-shadow: var(--shadow); background: var(--mint); cursor: pointer; transition: transform .35s ease, box-shadow .35s ease; }
+    .collection img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: transform .7s ease; }
+    .collection::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, rgba(14,36,24,.86) 10%, rgba(14,36,24,0) 62%); }
+    .collection:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+    .collection:hover img { transform: scale(1.07); }
+    .collection .c-info { position: absolute; left: 0; right: 0; bottom: 0; padding: 1.5rem; color: var(--white); }
+    .collection h3 { color: var(--white); font-size: 1.5rem; margin: 0 0 .2rem; }
+    .collection p { margin: 0 0 .9rem; font-size: .93rem; opacity: .92; }
+    .collection .pill { display: inline-block; padding: .4rem 1.05rem; border-radius: 999px; background: var(--cream); color: var(--forest); font-weight: 700; font-size: .88rem; }
+
+    /* ---------- Flower gallery ---------- */
+    .gallery { background: var(--white); }
+    .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 220px; grid-auto-flow: dense; gap: 16px; }
+    .gal-item { position: relative; margin: 0; overflow: hidden; border-radius: var(--r-md); cursor: pointer; background: var(--mint); box-shadow: var(--shadow); }
+    .gal-item.tall { grid-row: span 2; }
+    .gal-item.wide { grid-column: span 2; }
+    .gal-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s ease; }
+    .gal-item:hover img { transform: scale(1.08); }
+    .gal-item figcaption { position: absolute; inset: auto 0 0 0; padding: 2.4rem 1rem .9rem; color: var(--white); display: flex; justify-content: space-between; align-items: flex-end; gap: .5rem; background: linear-gradient(to top, rgba(14,36,24,.82), transparent); opacity: 0; transform: translateY(8px); transition: opacity .35s, transform .35s; }
+    .gal-item:hover figcaption, .gal-item:focus-visible figcaption { opacity: 1; transform: none; }
+    .gal-item figcaption strong { font-family: var(--font-head); font-size: 1.1rem; }
+
+    /* ---------- Lightbox (enlarged flower with Add to Cart) ---------- */
+    .lightbox { position: fixed; inset: 0; z-index: 110; display: grid; place-items: center; padding: 20px; background: rgba(14,36,24,.72); backdrop-filter: blur(4px); opacity: 0; pointer-events: none; transition: opacity .3s; }
+    .lightbox.show { opacity: 1; pointer-events: auto; }
+    .lb-card { position: relative; display: grid; grid-template-columns: 1.1fr 1fr; width: min(900px, 100%); max-height: 92vh; overflow: auto; background: var(--cream); border-radius: var(--r-lg); box-shadow: var(--shadow-lg); transform: scale(.96); transition: transform .3s; }
+    .lightbox.show .lb-card { transform: none; }
+    .lb-img { background: var(--mint); min-height: 340px; }
+    .lb-img img { width: 100%; height: 100%; min-height: 340px; object-fit: cover; }
+    .lb-body { padding: 2rem; display: flex; flex-direction: column; justify-content: center; gap: .35rem; }
+    .lb-body h3 { font-size: 1.9rem; margin: 0; }
+    .lb-body p { color: var(--muted); margin: 0 0 .6rem; }
+    .lb-body .price { font-size: 1.7rem; }
+    .lb-actions { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: .8rem; }
+    .lb-close { position: absolute; top: 12px; right: 12px; z-index: 2; box-shadow: var(--shadow); }
+    .btn-ghost { border: 2px solid var(--leaf); color: var(--leaf); }
+    .btn-ghost:hover { background: var(--leaf); color: var(--white); }
+
+    @media (max-width: 1080px) { .collection-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 960px)  { .hero-layout { grid-template-columns: 1fr; } .hero-collage { display: none; } }
+    @media (max-width: 860px) {
+      .gallery-grid { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 190px; }
+      .gal-item.wide { grid-column: auto; }
+      .gal-item figcaption { opacity: 1; transform: none; }   /* no hover on touch screens */
+      .lb-card { grid-template-columns: 1fr; }
+      .lb-img, .lb-img img { min-height: 240px; max-height: 300px; }
+    }
+    @media (max-width: 600px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 170px; gap: 12px; }
+      .gal-item.tall { grid-row: auto; }
+      .collection-grid { gap: 14px; }
+      .collection h3 { font-size: 1.15rem; }
+      .collection .c-info { padding: 1rem; }
+      .collection p { font-size: .82rem; }
+    }
+    /* =========================================================
+       13c. CHECKOUT / ORDER FORM MODAL
+       ========================================================= */
+    .modal { position: fixed; inset: 0; z-index: 115; display: grid; place-items: center; padding: 20px; background: rgba(14,36,24,.72); backdrop-filter: blur(4px); opacity: 0; pointer-events: none; transition: opacity .3s; }
+    .modal.show { opacity: 1; pointer-events: auto; }
+    .modal-card { position: relative; width: min(640px, 100%); max-height: 94vh; overflow: auto; background: var(--cream); border-radius: var(--r-lg); box-shadow: var(--shadow-lg); padding: 2rem; transform: scale(.97); transition: transform .3s; }
+    .modal.show .modal-card { transform: none; }
+    .modal-card [hidden] { display: none !important; }
+    .modal-close { position: absolute; top: 12px; right: 12px; box-shadow: var(--shadow); }
+    .modal-card h3 { font-size: 1.7rem; margin-bottom: .3rem; padding-right: 2.5rem; }
+    .co-intro { color: var(--muted); font-size: .96rem; }
+    .co-summary { background: var(--white); border-radius: var(--r-md); padding: 1rem 1.2rem; margin: 1rem 0 1.3rem; box-shadow: var(--shadow); }
+    .co-summary ul { margin-bottom: .6rem; max-height: 170px; overflow: auto; }
+    .co-summary li, .co-row { display: flex; justify-content: space-between; gap: 1rem; padding: .25rem 0; }
+    .co-summary li { border-bottom: 1px dashed #dfe6da; }
+    .co-row { color: var(--muted); }
+    .co-total { color: var(--forest); font-weight: 700; font-family: var(--font-head); font-size: 1.2rem; border-top: 2px solid var(--mint); margin-top: .3rem; padding-top: .6rem; }
+    .co-note { font-size: .9rem; color: var(--forest); background: var(--mint); padding: .8rem 1rem; border-radius: var(--r-sm); margin-bottom: 1rem; }
+    .field .opt { font-weight: 400; color: var(--muted); }
+    #coAddress, #coNotes { min-height: 90px; }
+    .form-error { display: none; margin: 0 0 1rem; padding: .9rem 1.1rem; border-radius: var(--r-sm); background: #fbe9e5; color: var(--danger); font-weight: 600; border-left: 5px solid var(--danger); }
+    .form-error.show { display: block; }
+    .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }   /* spam-bot trap, invisible to people */
+    .btn[disabled] { opacity: .65; cursor: progress; transform: none; }
+    .co-done { text-align: center; }
+    .co-done .big { font-size: 3rem; }
+    .co-number { display: inline-block; margin: .4rem 0 1rem; padding: .4rem 1.1rem; border-radius: 999px; background: var(--mint); color: var(--forest); font-weight: 700; letter-spacing: .5px; }
+    .co-done .co-summary { text-align: left; }
+    .co-actions { display: flex; flex-wrap: wrap; gap: .7rem; justify-content: center; margin-top: 1.2rem; }
+    .info-list a { font-weight: 700; color: var(--forest); }
+    .info-list a:hover { text-decoration: underline; }
+    @media (max-width: 600px) { .modal-card { padding: 1.4rem 1.2rem; } }
+
+    /* Respect people who prefer less motion */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+      .hero-inner > * { opacity: 1; transform: none; }
+    }
+  </style>
+
+  <!-- Image fallback helpers.
+       They live in <head> so they ALWAYS exist before any image can fail to load.
+       (This is what fixes the old "FALLBACK_IMG is not defined" error.) -->
+  <script>
+    /* makeFallback() draws a small vector flower/plant picture and returns it as a data URI. */
+    function makeFallback(kind, color, label) {
+      var g = "#2f6b45", gl = "#4f9a66", i, a, o = "";
+      color = color || "#e87aa0";
+      label = String(label || "").replace(/[&<>"]/g, "");
+      function petals(n, rx, ry, dist, fill, cx, cy) {
+        var s = "";
+        for (i = 0; i < n; i++) {
+          a = Math.round(i * 360 / n);
+          s += '<ellipse cx="' + cx + '" cy="' + (cy - dist) + '" rx="' + rx + '" ry="' + ry + '" fill="' + fill + '" stroke="rgba(0,0,0,.14)" stroke-width="2" transform="rotate(' + a + ' ' + cx + ' ' + cy + ')"/>';
+        }
+        return s;
+      }
+      var stem = '<path d="M200 205 C195 265 205 310 200 350" stroke="' + g + '" stroke-width="9" fill="none" stroke-linecap="round"/>' +
+        '<ellipse cx="160" cy="292" rx="42" ry="14" fill="' + g + '" transform="rotate(-30 160 292)"/>' +
+        '<ellipse cx="242" cy="272" rx="42" ry="14" fill="' + gl + '" transform="rotate(30 242 272)"/>';
+      var pot = '<path d="M150 300 H250 L238 362 H162 Z" fill="#c4794a"/><rect x="144" y="292" width="112" height="16" rx="6" fill="#d98c5a"/>';
+
+      if (kind === "sunflower") {
+        o = stem + petals(18, 13, 40, 62, color, 200, 160) + '<circle cx="200" cy="160" r="40" fill="#5b3a1e"/><circle cx="200" cy="160" r="26" fill="#7a5230"/>';
+      } else if (kind === "tulip") {
+        o = stem + '<path d="M150 120 Q146 215 200 222 Q254 215 250 120 L226 148 L200 108 L174 148 Z" fill="' + color + '" stroke="rgba(0,0,0,.14)" stroke-width="2"/>';
+      } else if (kind === "succulent") {
+        o = petals(12, 15, 36, 36, "#7fb08a", 200, 230) + petals(8, 13, 26, 24, "#9ccaa5", 200, 230) + '<circle cx="200" cy="230" r="10" fill="#c9e4cd"/>' + pot;
+      } else if (kind === "cactus") {
+        o = '<rect x="170" y="110" width="60" height="195" rx="30" fill="#4f9a66"/>' +
+            '<path d="M170 215 H140 V165" stroke="#4f9a66" stroke-width="26" fill="none" stroke-linecap="round" stroke-linejoin="round"/>' +
+            '<path d="M230 240 H262 V190" stroke="#4f9a66" stroke-width="26" fill="none" stroke-linecap="round" stroke-linejoin="round"/>' +
+            '<path d="M200 130 V290 M185 150 V280 M215 150 V280" stroke="#2f6b45" stroke-width="3" opacity=".5"/>' +
+            '<circle cx="200" cy="108" r="13" fill="' + color + '"/>' + pot;
+      } else if (kind === "leaves") {
+        var angs = [-66, -44, -22, 0, 22, 44, 66];
+        for (i = 0; i < angs.length; i++) {
+          o += '<ellipse cx="200" cy="215" rx="28" ry="78" fill="' + (i % 2 ? gl : g) + '" stroke="rgba(0,0,0,.12)" stroke-width="2" transform="rotate(' + angs[i] + ' 200 300)"/>';
+        }
+        o += pot;
+      } else if (kind === "hanging") {
+        var ks = [-60, -30, 0, 30, 60];
+        o = '<path d="M200 20 V80 M200 80 L150 132 M200 80 L250 132" stroke="#8a7a5a" stroke-width="4" fill="none"/>' +
+            '<path d="M140 130 H260 Q256 190 200 196 Q144 190 140 130 Z" fill="#c4794a"/>';
+        for (i = 0; i < ks.length; i++) {
+          var x = 200 + ks[i], len = Math.abs(ks[i]) < 31 ? 330 : 280;
+          o += '<path d="M' + x + ' 190 Q' + (x + 16) + ' 250 ' + x + ' ' + len + '" stroke="' + g + '" stroke-width="5" fill="none" stroke-linecap="round"/>' +
+               '<circle cx="' + (x + 8) + '" cy="240" r="9" fill="' + gl + '"/><circle cx="' + (x + 2) + '" cy="' + (len - 14) + '" r="10" fill="' + g + '"/>';
+        }
+      } else { /* default: a classic multi-petal flower */
+        o = stem + petals(9, 26, 50, 52, color, 200, 160) + '<circle cx="200" cy="160" r="22" fill="#e0a82e"/>';
+      }
+      var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7f3e3"/><stop offset="1" stop-color="#d4e8d6"/></linearGradient></defs>' +
+        '<rect width="400" height="400" fill="url(#bg)"/>' + o +
+        '<text x="200" y="388" text-anchor="middle" font-family="Georgia,serif" font-size="22" font-weight="700" fill="#1d3b2a">' + label + '</text></svg>';
+      return "data:image/svg+xml;utf8," + encodeURIComponent(svg);
+    }
+
+    /* imgFail() runs when an <img> cannot load.
+       1) it tries the next backup photo URL listed in data-alt,
+       2) when none are left it shows the drawn illustration from data-fb ("kind|colour|name"),
+       3) data-fb="hide" simply hides the image (used for the hero background). */
+    function imgFail(img) {
+      var rest = (img.getAttribute("data-alt") || "").split(" ").filter(Boolean);
+      if (rest.length) { img.setAttribute("data-alt", rest.slice(1).join(" ")); img.src = rest[0]; return; }
+      img.onerror = null;
+      var fb = (img.getAttribute("data-fb") || "flower|#e87aa0|").split("|");
+      if (fb[0] === "hide") { img.style.display = "none"; return; }
+      img.src = makeFallback(fb[0], fb[1], fb[2]);
+      img.classList.add("is-fallback");
+    }
+
+    /* Generic fallback, kept as a global for any code that still refers to it */
+    var FALLBACK_IMG = makeFallback("leaves", "#2f6b45", "GreenLeaf Nursery");
+  </script>
+</head>
+
+<body>
+
+<!-- ===================== HEADER / NAV ===================== -->
+<header id="header">
+  <div class="container nav">
+    <a href="#home" class="logo" aria-label="GreenLeaf Nursery home"><span class="mark">🌿</span>GreenLeaf Nursery</a>
+
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#plants">Plants</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#care">Plant Care</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="cart-btn" id="openCart" aria-label="Open shopping cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- ===================== HERO ===================== -->
+  <section class="hero" id="home">
+    <!-- Hero flower photo. Backup photo + fallback are handled by imgFail() -->
+    <img class="hero-bg" src="https://images.pexels.com/photos/34082449/pexels-photo-34082449.jpeg?auto=compress&cs=tinysrgb&w=1800"
+         data-alt="https://loremflickr.com/1600/900/flower,garden/all?lock=77" data-fb="hide|#000|" alt="" fetchpriority="high" onerror="imgFail(this)" />
+    <div class="container hero-layout">
+      <div class="hero-inner">
+        <h1>Bring Nature Home</h1>
+        <p class="sub">Discover beautiful plants and transform your space into a green paradise.</p>
+        <div class="hero-btns">
+          <a href="#plants" class="btn btn-light">Shop Now</a>
+          <a href="#categories" class="btn btn-outline">Explore Plants</a>
+        </div>
+        <ul class="hero-badges">
+          <li>🌱 Healthy, nursery-grown</li>
+          <li>📦 Safe plant packaging</li>
+          <li>💬 Free care advice</li>
+        </ul>
+      </div>
+      <!-- Flower photo collage (filled by JavaScript) -->
+      <div class="hero-collage" id="heroCollage" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- ===================== POPULAR CATEGORIES ===================== -->
+  <section id="categories">
+    <div class="container">
+      <div class="section-head center">
+        <h2>Find the right plant for every corner</h2>
+        <p>Pick a category and we'll take you straight to the plants.</p>
+      </div>
+      <div class="cat-grid" id="catGrid"><!-- filled by JavaScript --></div>
+    </div>
+  </section>
+
+  <!-- ===================== FEATURED COLLECTIONS ===================== -->
+  <section class="collections" id="collections">
+    <div class="container">
+      <div class="section-head center">
+        <h2>Featured collections</h2>
+        <p>Curated groups of plants for every mood, space and season.</p>
+      </div>
+      <div class="collection-grid" id="collectionGrid"><!-- filled by JavaScript --></div>
+    </div>
+  </section>
+
+  <!-- ===================== FEATURED PLANTS ===================== -->
+  <section class="featured" id="featured">
+    <div class="container">
+      <div class="section-head center">
+        <h2>Featured plants this season</h2>
+        <p>Hand-picked favourites that are easy to love and easy to grow.</p>
+      </div>
+      <div class="product-grid" id="featuredGrid"><!-- filled by JavaScript --></div>
+    </div>
+  </section>
+
+  <!-- ===================== PLANT SHOP ===================== -->
+  <section id="plants">
+    <div class="container">
+      <div class="section-head">
+        <h2>Our plant shop</h2>
+        <p>Search by name, filter by category and add your favourites to the cart.</p>
+      </div>
+
+      <div class="toolbar">
+        <div class="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="search" id="searchInput" placeholder="Search plants, e.g. aloe, orchid…" aria-label="Search plants" />
+        </div>
+        <div class="sort">
+          <select id="sortSelect" aria-label="Sort plants">
+            <option value="default">Sort: Recommended</option>
+            <option value="low">Price: Low to High</option>
+            <option value="high">Price: High to Low</option>
+            <option value="name">Name: A to Z</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="chips" id="chips" role="group" aria-label="Filter by category"><!-- filled by JavaScript --></div>
+      <p class="result-info" id="resultInfo" aria-live="polite"></p>
+      <div class="product-grid" id="productGrid"><!-- filled by JavaScript --></div>
+    </div>
+  </section>
+
+  <!-- ===================== FLOWER GALLERY ===================== -->
+  <section class="gallery" id="gallery">
+    <div class="container">
+      <div class="section-head center">
+        <h2>The flower gallery</h2>
+        <p>Tap any bloom for a closer look, then add it to your cart.</p>
+      </div>
+      <div class="gallery-grid" id="galleryGrid"><!-- filled by JavaScript --></div>
+    </div>
+  </section>
+
+  <!-- ===================== WHY CHOOSE US ===================== -->
+  <section class="why" id="why">
+    <div class="container">
+      <div class="section-head center">
+        <h2>Why plant lovers choose GreenLeaf</h2>
+        <p>We grow, pack and support every plant as if it were going to our own home.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card"><div class="ico">🌿</div><h3>Healthy plants</h3><p>Every plant is checked for strong roots, fresh leaves and pests before it leaves the nursery.</p></div>
+        <div class="why-card"><div class="ico">💰</div><h3>Affordable prices</h3><p>Fair, honest pricing straight from the grower, so a greener home never has to be expensive.</p></div>
+        <div class="why-card"><div class="ico">📦</div><h3>Quality packaging</h3><p>Sturdy, recyclable packaging holds each pot and protects the leaves during delivery.</p></div>
+        <div class="why-card"><div class="ico">🧑‍🌾</div><h3>Expert care advice</h3><p>Questions about watering or light? Our plant specialists are happy to help after you buy.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ABOUT US ===================== -->
+  <section id="about">
+    <div class="container about-grid">
+      <div class="about-media">
+        <img class="main" src="https://images.pexels.com/photos/36756577/pexels-photo-36756577.jpeg?auto=compress&cs=tinysrgb&w=900"
+             data-alt="https://loremflickr.com/900/1100/garden,flowers/all?lock=88" data-fb="flower|#c8283d|GreenLeaf Nursery"
+             alt="Red roses blooming in a sunny garden" loading="lazy" onerror="imgFail(this)" />
+        <div class="about-note">Grown with care, delivered with love<small>The GreenLeaf promise</small></div>
+      </div>
+      <div class="about-text">
+        <h2>A small nursery with a big love for plants</h2>
+        <p>GreenLeaf Nursery began with a few pots on a sunny balcony and a simple belief: everyone deserves a little green in their life. Today we grow hundreds of healthy plants for homes, offices and gardens, and we still treat every one like it's the first.</p>
+        <div class="pillars">
+          <div class="pillar"><span class="ico">🌱</span><div><h4>Our story</h4><p>From a hobby balcony to a full nursery, powered by patience and curiosity.</p></div></div>
+          <div class="pillar"><span class="ico">🎯</span><div><h4>Our mission</h4><p>Make plant parenting simple, joyful and affordable for everyone.</p></div></div>
+          <div class="pillar"><span class="ico">🪴</span><div><h4>Quality plants</h4><p>Nursery-grown, acclimatised and checked by hand before every order.</p></div></div>
+          <div class="pillar"><span class="ico">♻️</span><div><h4>Eco-friendly vision</h4><p>Compost-rich soil, rainwater harvesting and recyclable packaging wherever we can.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PLANT CARE GUIDE ===================== -->
+  <section class="care" id="care">
+    <div class="container">
+      <div class="section-head center">
+        <h2>Plant care made simple</h2>
+        <p>A few easy habits keep your plants thriving all year round.</p>
+      </div>
+      <div class="care-grid">
+        <article class="care-card"><div class="ico">💧</div><h3>Watering</h3>
+          <ul><li>Check the top 2 cm of soil. Water only when it feels dry.</li><li>Water deeply until it drains out of the bottom, then empty the saucer.</li><li>Succulents need far less water than leafy plants.</li></ul></article>
+        <article class="care-card"><div class="ico">☀️</div><h3>Sunlight</h3>
+          <ul><li>Bright, indirect light suits most indoor plants.</li><li>Flowering plants and succulents love several hours of sun.</li><li>Rotate pots every week so growth stays even.</li></ul></article>
+        <article class="care-card"><div class="ico">🌱</div><h3>Soil</h3>
+          <ul><li>Use a light, well-draining potting mix with compost.</li><li>Add sand or perlite for cacti and succulents.</li><li>Pick pots with drainage holes to protect the roots.</li></ul></article>
+        <article class="care-card"><div class="ico">✂️</div><h3>Maintenance</h3>
+          <ul><li>Trim yellow or dry leaves to encourage fresh growth.</li><li>Wipe dusty leaves gently with a damp cloth.</li><li>Repot every 1 to 2 years when roots fill the pot.</li></ul></article>
+        <article class="care-card"><div class="ico">🧪</div><h3>Feeding</h3>
+          <ul><li>Feed with diluted organic fertiliser every 3 to 4 weeks in the growing season.</li><li>Pause feeding in winter when growth slows.</li><li>Never fertilise a dry or stressed plant.</li></ul></article>
+        <article class="care-card"><div class="ico">🐛</div><h3>Pests and health</h3>
+          <ul><li>Look under leaves each week for tiny pests.</li><li>Wash off pests with a neem-oil spray or mild soapy water.</li><li>Keep new plants apart for a week before grouping them.</li></ul></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CUSTOMER REVIEWS ===================== -->
+  <section id="reviews">
+    <div class="container">
+      <div class="section-head center">
+        <h2>Kind words from plant parents</h2>
+        <p>Sample testimonials. Replace them with your own customers' reviews.</p>
+      </div>
+      <div class="review-grid" id="reviewGrid"><!-- filled by JavaScript --></div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT ===================== -->
+  <section class="contact" id="contact">
+    <div class="container contact-grid">
+      <div class="contact-info">
+        <h2>Let's talk plants</h2>
+        <p>Not sure which plant suits your space? Send us a message and our team will help you choose.</p>
+        <ul class="info-list">
+          <li><span class="ico">📍</span><div><small>Visit us</small>123 Sample Garden Road, Your City</div></li>
+          <li><span class="ico">📞</span><div><small>Call us</small><a href="tel:+919975484112">+91 99754 84112</a></div></li>
+          <li><span class="ico">✉️</span><div><small>Email us</small><a href="mailto:rutujadabhade401@gmail.com">rutujadabhade401@gmail.com</a></div></li>
+          <li><span class="ico">🕘</span><div><small>Open hours</small>Mon to Sat, 9:00 AM to 6:00 PM</div></li>
+        </ul>
+        <p class="sample-note">The street address above is a sample placeholder. Replace it with your real nursery address.</p>
+      </div>
+
+      <form class="contact-form" id="contactForm" novalidate>
+        <div class="field" id="f-name">
+          <label for="name">Your name</label>
+          <input type="text" id="name" name="name" placeholder="Jane Green" autocomplete="name" maxlength="80" />
+          <div class="error">Please enter your name (at least 2 characters).</div>
+        </div>
+        <div class="field" id="f-email">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" maxlength="120" />
+          <div class="error">Please enter a valid email address, like you@example.com.</div>
+        </div>
+        <div class="field" id="f-message">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Tell us what you're looking for…" maxlength="2000"></textarea>
+          <div class="error">Please write a message of at least 10 characters.</div>
+        </div>
+        <div class="form-error" id="contactError" role="alert"></div>
+        <button type="submit" class="btn btn-primary" id="contactSubmit">Send message</button>
+        <div class="form-success" id="formSuccess" role="status"></div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="#home" class="logo"><span class="mark">🌿</span>GreenLeaf Nursery</a>
+        <p>Healthy plants, friendly advice and a greener home for everyone.</p>
+        <div class="socials">
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M13.5 22v-8.2h2.8l.4-3.3h-3.2V8.4c0-.9.3-1.6 1.6-1.6h1.7V3.9c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.1v2.6H7.600v3.3h2.800V22h3.100z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 7.500a4.500 4.500 0 1 0 0 9 4.500 4.500 0 0 0 0-9zm0 7.400a2.900 2.900 0 1 1 0-5.800 2.900 2.900 0 0 1 0 5.800zM17.300 6.200a1.100 1.100 0 1 0 0 2.200 1.100 1.100 0 0 0 0-2.200zM12 2.800c2.900 0 3.300 0 4.400.1 3 .1 4.400 1.500 4.500 4.500.1 1.100.1 1.500.1 4.400s0 3.300-.1 4.400c-.1 3-1.500 4.400-4.500 4.500-1.100.1-1.500.1-4.400.1s-3.300 0-4.400-.1c-3-.1-4.400-1.500-4.500-4.500C3 15.300 3 14.900 3 12s0-3.300.1-4.400c.1-3 1.500-4.400 4.500-4.500 1.100-.1 1.500-.1 4.400-.1zM12 1c-3 0-3.300 0-4.500.1C3.400 1.300 1.300 3.400 1.100 7.500 1 8.700 1 9 1 12s0 3.300.1 4.500c.2 4.100 2.300 6.200 6.400 6.400 1.200.1 1.500.1 4.500.1s3.300 0 4.500-.1c4.100-.2 6.200-2.300 6.400-6.400.1-1.200.1-1.500.1-4.500s0-3.300-.1-4.500c-.2-4.100-2.300-6.200-6.400-6.400C15.300 1 15 1 12 1z"/></svg></a>
+          <a href="#" aria-label="X (Twitter)"><svg viewBox="0 0 24 24"><path d="M17.800 3h3.100l-6.800 7.700L22 21h-6.200l-4.900-6.300L5.300 21H2.200l7.200-8.300L1.900 3h6.400l4.400 5.800L17.800 3zm-1.100 16.200h1.700L7.300 4.700H5.500l11.200 14.500z"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M21.600 7.200a2.500 2.500 0 0 0-1.800-1.800C18.200 5 12 5 12 5s-6.200 0-7.800.4A2.500 2.500 0 0 0 2.400 7.200C2 8.800 2 12 2 12s0 3.200.4 4.800a2.500 2.500 0 0 0 1.800 1.800C5.800 19 12 19 12 19s6.200 0 7.800-.4a2.500 2.500 0 0 0 1.800-1.800c.4-1.600.4-4.800.4-4.800s0-3.200-.4-4.800zM10 15V9l5.200 3L10 15z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>Quick links</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#plants">Plants</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#care">Plant Care</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li>123 Sample Garden Road, Your City</li>
+          <li><a href="tel:+919975484112">+91 99754 84112</a></li>
+          <li><a href="mailto:rutujadabhade401@gmail.com">rutujadabhade401@gmail.com</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Open hours</h4>
+        <ul><li>Mon to Sat: 9 AM to 6 PM</li><li>Sunday: Closed</li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> GreenLeaf Nursery. All rights reserved.</span>
+      <span>Made with 💚 for plant lovers</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===================== LIGHTBOX (gallery enlarge view) ===================== -->
+<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Plant details">
+  <div class="lb-card">
+    <button class="close-btn lb-close" id="lbClose" aria-label="Close">&times;</button>
+    <div class="lb-img" id="lbImg"></div>
+    <div class="lb-body" id="lbBody"></div>
+  </div>
+</div>
+
+<!-- ===================== CHECKOUT / ORDER FORM ===================== -->
+<div class="modal" id="checkoutModal" aria-hidden="true" role="dialog" aria-labelledby="coTitle">
+  <div class="modal-card">
+    <button class="close-btn modal-close" id="coClose" aria-label="Close checkout">&times;</button>
+
+    <!-- View 1: the order form -->
+    <div id="coFormView">
+      <h3 id="coTitle">Place your order</h3>
+      <p class="co-intro">Tell us where to deliver your plants. We'll call you to confirm. Questions? Call <a href="tel:+919975484112"><strong>+91 99754 84112</strong></a>.</p>
+      <div class="co-summary" id="coSummary"><!-- selected plants, filled by JavaScript --></div>
+
+      <form id="orderForm" novalidate>
+        <div class="field" id="f-coName">
+          <label for="coName">Full name</label>
+          <input type="text" id="coName" autocomplete="name" maxlength="80" placeholder="Your full name" />
+          <div class="error">Please enter your name (at least 2 characters).</div>
+        </div>
+        <div class="field" id="f-coPhone">
+          <label for="coPhone">Phone number</label>
+          <input type="tel" id="coPhone" autocomplete="tel" inputmode="tel" maxlength="20" placeholder="10-digit mobile number" />
+          <div class="error">Please enter a valid 10-digit Indian mobile number.</div>
+        </div>
+        <div class="field" id="f-coAddress">
+          <label for="coAddress">Delivery address</label>
+          <textarea id="coAddress" autocomplete="street-address" maxlength="300" placeholder="House no., street, area, city, PIN code"></textarea>
+          <div class="error">Please enter your full delivery address (at least 10 characters). Don't include card numbers.</div>
+        </div>
+        <div class="field" id="f-coNotes">
+          <label for="coNotes">Notes <span class="opt">(optional)</span></label>
+          <textarea id="coNotes" maxlength="300" placeholder="Landmark, preferred delivery time, gift note…"></textarea>
+          <div class="error">Notes must be under 300 characters and must not contain card numbers.</div>
+        </div>
+        <!-- Spam-bot trap: real visitors never see or fill this -->
+        <div class="hp" aria-hidden="true"><label>Leave this empty <input type="text" id="coWebsite" tabindex="-1" autocomplete="off" /></label></div>
+
+        <div class="co-note">💵 <strong>Payment:</strong> pay on delivery (cash or UPI). Please never type card details on this website. We don't collect them.</div>
+        <div class="form-error" id="coError" role="alert"></div>
+        <button type="submit" class="btn btn-primary" id="coSubmit" style="width:100%">Place order</button>
+        <button type="button" class="clear-btn" id="coBack">Back to cart</button>
+      </form>
+    </div>
+
+    <!-- View 2: confirmation (shown ONLY after the database confirms the order was saved) -->
+    <div id="coDoneView" class="co-done" hidden>
+      <div class="big">🌿</div>
+      <h3 style="padding-right:0">Order confirmed</h3>
+      <p id="coDoneMsg"></p>
+      <span class="co-number" id="coDoneNumber"></span>
+      <div class="co-summary" id="coDoneItems"></div>
+      <p>Total to pay on delivery: <strong id="coDoneTotal"></strong></p>
+      <p class="co-intro">Need to change something? Call <a href="tel:+919975484112"><strong>+91 99754 84112</strong></a> and quote your order number.</p>
+      <div class="co-actions"><button class="btn btn-primary" id="coDoneClose">Continue shopping</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== CART DRAWER ===================== -->
+<div class="overlay" id="overlay"></div>
+<aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart" aria-hidden="true">
+  <div class="cart-head">
+    <h3>Your cart</h3>
+    <button class="close-btn" id="closeCart" aria-label="Close cart">&times;</button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-foot" id="cartFoot">
+    <div class="sum-row"><span>Subtotal</span><span id="subTotal">₹0</span></div>
+    <div class="sum-row"><span>Delivery</span><span id="deliveryFee">₹0</span></div>
+    <div class="ship-note" id="shipNote"></div>
+    <div class="sum-row total"><span>Total</span><span id="grandTotal">₹0</span></div>
+    <button class="btn btn-primary" id="checkoutBtn">Checkout</button>
+    <button class="clear-btn" id="clearCart">Clear cart</button>
+  </div>
+</aside>
+
+<div class="toast" id="toast" role="status"></div>
+<button class="to-top" id="toTop" aria-label="Back to top">↑</button>
+
+<noscript>This website needs JavaScript enabled to show the plant shop and cart.</noscript>
+
+<script>
+/* =========================================================
+   JAVASCRIPT
+   ========================================================= */
+
+/* ---------- Image sources ----------
+   Every product has up to 3 layers of protection:
+   1) a primary photo (Pexels photo ID when we have one, otherwise a keyword photo),
+   2) a backup keyword photo from loremflickr.com,
+   3) a drawn flower/plant illustration (see makeFallback() in <head>).
+   imgFail() in <head> walks through these automatically. */
+const pexels = (id, w) => `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=${w}`;
+const flickr = (kw, w, h, lock) => `https://loremflickr.com/${w}/${h}/${kw}/all?lock=${lock}`;
+
+/* Ordered list of photo URLs to try for a product */
+function imageList(p, w, h) {
+  return p.px
+    ? [pexels(p.px, w), flickr(p.kw, w, h, p.lock)]
+    : [flickr(p.kw, w, h, p.lock), flickr(p.kw, w, h, p.lock + 100)];
+}
+
+/* Builds a complete <img> tag with lazy loading, backups and fallback artwork */
+function imgTag(p, w = 600, h = 600, lazy = true) {
+  const [first, ...rest] = imageList(p, w, h);
+  return `<img src="${first}" data-alt="${rest.join(" ")}" data-fb="${p.kind}|${p.color}|${p.name}" alt="${p.name}" ${lazy ? 'loading="lazy"' : ""} onerror="imgFail(this)" />`;
+}
+
+
+/* ---------- Currency formatter (Indian Rupees) ---------- */
+const money = n => new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(n);
+
+/* ---------- PRODUCT DATA ----------
+   To add a plant, copy one object and give it a NEW unique id.
+     px   : optional Pexels photo ID (the number at the end of a pexels.com/photo/... link)
+     kw   : keywords used to find a matching backup photo
+     lock : any number, keeps the same backup photo every time the page loads
+     kind / color : the drawn illustration shown if no photo can load
+     featured: true  -> appears in "Featured plants" on the home page
+   NOTE: ids 1-15 are unchanged from before, so any saved carts still work. */
+const CATEGORIES = ["Indoor Plants", "Outdoor Plants", "Flowering Plants", "Succulents", "Medicinal Plants"];
+
+const PRODUCTS = [
+  /* ===== Indoor Plants ===== */
+  { id: 1,  name: "Monstera Deliciosa",   category: "Indoor Plants",    price: 899,  kw: "monstera",            lock: 1,  kind: "leaves",    color: "#2f6b45", desc: "Bold, split leaves that make a statement in any living room.", featured: true },
+  { id: 2,  name: "Snake Plant",          category: "Indoor Plants",    price: 449,  kw: "sansevieria",         lock: 2,  kind: "leaves",    color: "#3d7d52", desc: "Upright, striped leaves. Nearly unkillable and happy in low light." },
+  { id: 3,  name: "Peace Lily",           category: "Indoor Plants",    price: 549,  kw: "spathiphyllum,plant", lock: 3,  kind: "leaves",    color: "#2f6b45", desc: "Glossy green leaves with elegant white blooms, perfect for shade." },
+  { id: 4,  name: "Areca Palm",           category: "Indoor Plants",    price: 749,  kw: "areca,palm",          lock: 4,  kind: "leaves",    color: "#4f9a66", desc: "A feathery, air-freshening palm that fills bright corners with a tropical feel." },
+  { id: 25, name: "Money Plant",          category: "Indoor Plants",    price: 299,  kw: "pothos",              lock: 25, kind: "hanging",   color: "#2f6b45", desc: "Trailing heart-shaped leaves that grow in soil or water. Simple and lucky.", featured: true, tags: "hanging" },
+  { id: 26, name: "Spider Plant",         category: "Indoor Plants",    price: 329,  kw: "spiderplant",         lock: 26, kind: "hanging",   color: "#4f9a66", desc: "Arching striped leaves that trail beautifully from hanging pots.", tags: "hanging" },
+
+  /* ===== Outdoor Plants ===== */
+  { id: 5,  name: "Ficus Tree",           category: "Outdoor Plants",   price: 999,  kw: "ficus",               lock: 5,  kind: "leaves",    color: "#2f6b45", desc: "A lush, dense evergreen that shapes beautifully into a garden hedge." },
+  { id: 6,  name: "Garden Croton",        category: "Outdoor Plants",   price: 349,  kw: "croton,plant",        lock: 6,  kind: "leaves",    color: "#d98c2b", desc: "Colourful, patterned foliage that keeps your garden bright all year." },
+  { id: 27, name: "Bougainvillea",        category: "Outdoor Plants",   price: 399,  kw: "bougainvillea",       lock: 27, kind: "flower",    color: "#c2358f", desc: "A flowering-pot favourite that bursts into papery pink blooms in full sun.", featured: true },
+  { id: 28, name: "Hanging Petunia Basket", category: "Outdoor Plants", price: 549,  kw: "petunia,basket",      lock: 28, kind: "hanging",   color: "#b56bd6", desc: "A ready-to-hang basket overflowing with colourful trumpet flowers.", tags: "hanging" },
+  { id: 29, name: "Boxwood Topiary",      category: "Outdoor Plants",   price: 799,  kw: "topiary,boxwood",     lock: 29, kind: "leaves",    color: "#2f6b45", desc: "A neatly clipped decorative shrub that adds structure to garden entrances." },
+
+  /* ===== Flowering Plants ===== */
+  { id: 8,  name: "Red Rose Bush",        category: "Flowering Plants", price: 399,  px: 53141,    kw: "rose,red",   lock: 8,  kind: "flower",    color: "#c8283d", desc: "Velvety red roses with a classic fragrance. Loves sunshine and regular pruning.", featured: true, tags: "rose roses" },
+  { id: 16, name: "Pink Rose",            category: "Flowering Plants", price: 429,  px: 14010599, kw: "rose,pink",  lock: 16, kind: "flower",    color: "#e87aa0", desc: "Soft pink, fragrant blooms that bring romance to any garden corner.", tags: "rose roses" },
+  { id: 17, name: "White Rose",           category: "Flowering Plants", price: 449,  kw: "rose,white",          lock: 17, kind: "flower",    color: "#f4efe6", desc: "Pure white, elegant blooms. A favourite for weddings and peaceful gardens.", tags: "rose roses" },
+  { id: 18, name: "Sunflower",            category: "Flowering Plants", price: 199,  px: 26892313, kw: "sunflower",  lock: 18, kind: "sunflower", color: "#f2b705", desc: "Tall, cheerful golden blooms that follow the sun across your garden.", featured: true, tags: "sunny" },
+  { id: 19, name: "Tulip",                category: "Flowering Plants", price: 349,  kw: "tulip",               lock: 19, kind: "tulip",     color: "#e0457b", desc: "Cup-shaped spring flowers in vivid colours. Lovely in pots and borders.", featured: true },
+  { id: 9,  name: "Orchid",               category: "Flowering Plants", price: 1199, kw: "orchid",              lock: 9,  kind: "flower",    color: "#b56bd6", desc: "Graceful, long-lasting flowers for a refined windowsill display.", featured: true },
+  { id: 20, name: "Marigold",             category: "Flowering Plants", price: 129,  kw: "marigold",            lock: 20, kind: "flower",    color: "#f28c1c", desc: "Hardy golden-orange blooms loved for festivals, borders and natural pest control.", tags: "sunny" },
+  { id: 7,  name: "Hibiscus",             category: "Flowering Plants", price: 349,  kw: "hibiscus",            lock: 7,  kind: "flower",    color: "#e23b4e", desc: "Big, bright blooms that flower almost non-stop in sunny spots.", tags: "sunny" },
+  { id: 21, name: "Lily",                 category: "Flowering Plants", price: 499,  kw: "lily,flower",         lock: 21, kind: "flower",    color: "#f5a3c0", desc: "Trumpet-shaped, fragrant flowers that add elegance to patios and vases." },
+  { id: 22, name: "Lotus",                category: "Flowering Plants", price: 599,  kw: "lotus,flower",        lock: 22, kind: "flower",    color: "#f7b6d2", desc: "A sacred water bloom with large, layered petals. Grows in a tub or small pond." },
+  { id: 23, name: "Daisy",                category: "Flowering Plants", price: 179,  kw: "daisy",               lock: 23, kind: "flower",    color: "#ffffff", desc: "Cheerful white petals with sunny centres. Easy to grow and always welcoming.", tags: "sunny" },
+  { id: 24, name: "Chrysanthemum",        category: "Flowering Plants", price: 299,  kw: "chrysanthemum",       lock: 24, kind: "flower",    color: "#e9b021", desc: "Full, colourful pom-pom blooms that brighten balconies and autumn gardens.", tags: "sunny" },
+
+  /* ===== Succulents & Cactus ===== */
+  { id: 10, name: "Echeveria",             category: "Succulents",       price: 249,  kw: "echeveria",           lock: 10, kind: "succulent", color: "#7fb08a", desc: "A tiny, petal-shaped succulent that thrives on neglect.", featured: true },
+  { id: 11, name: "Jade Plant",           category: "Succulents",       price: 299,  kw: "jade,plant",          lock: 11, kind: "succulent", color: "#4f9a66", desc: "Thick, glossy leaves said to bring good luck to the home." },
+  { id: 12, name: "Desert Cactus",        category: "Succulents",       price: 399,  kw: "cactus",              lock: 12, kind: "cactus",    color: "#e0457b", desc: "A sculptural, low-maintenance cactus for sunny desks and shelves." },
+  { id: 30, name: "String of Pearls",     category: "Succulents",       price: 449,  kw: "succulent,hanging",   lock: 30, kind: "hanging",   color: "#4f9a66", desc: "Bead-like cascading stems that look stunning in a hanging pot.", tags: "hanging" },
+
+  /* ===== Medicinal Plants ===== */
+  { id: 13, name: "Aloe Vera",            category: "Medicinal Plants", price: 249,  kw: "aloe,vera",           lock: 13, kind: "succulent", color: "#5fa070", desc: "Soothing gel-filled leaves, a handy plant for every kitchen window." },
+  { id: 14, name: "Tulsi (Holy Basil)",   category: "Medicinal Plants", price: 149,  kw: "basil",               lock: 14, kind: "leaves",    color: "#2f6b45", desc: "A sacred, aromatic herb widely used in home teas and remedies." },
+  { id: 15, name: "Lavender",             category: "Medicinal Plants", price: 449,  kw: "lavender",            lock: 15, kind: "flower",    color: "#9a7bd1", desc: "Calming purple blooms with a soothing fragrance for relaxation." }
+];
+
+/* Quick lookup by id */
+const byId = id => PRODUCTS.find(p => p.id === Number(id));
+
+/* Which product's photo represents each category card (product ids) */
+const CATEGORY_IMG = {
+  "Indoor Plants":    1,
+  "Outdoor Plants":   27,
+  "Flowering Plants": 8,
+  "Succulents":       10,
+  "Medicinal Plants": 13
+};
+
+/* Featured collections: "go" tells the shop what to show when the card is clicked */
+const COLLECTIONS = [
+  { title: "Rose Garden",    sub: "Red, pink and white roses",       img: 8,  go: { q: "roses" } },
+  { title: "Sunny Blooms",   sub: "Golden flowers that love the sun", img: 18, go: { q: "sunny" } },
+  { title: "Hanging Garden", sub: "Trailing plants for baskets",      img: 26, go: { q: "hanging" } },
+  { title: "Desert Corner",  sub: "Succulents and cactus",            img: 12, go: { cat: "Succulents" } }
+];
+
+/* The 12 flowers shown in the gallery, in display order */
+const GALLERY_IDS = [8, 16, 17, 18, 19, 9, 20, 7, 21, 22, 23, 24];
+
+/* Sample testimonials */
+const REVIEWS = [
+  { name: "Ananya R.",  place: "Pune",      rating: 5, text: "My monstera arrived healthy and beautifully packed, with a care card too. It has already grown two new leaves!" },
+  { name: "Rohan M.",   place: "Mumbai",    rating: 5, text: "Great prices and genuinely helpful advice. They helped me pick low-light plants for my apartment." },
+  { name: "Priya S.",   place: "Nashik",    rating: 4, text: "Lovely flowering plants. The hibiscus bloomed within a week. Delivery took a day longer than I expected." },
+  { name: "Vikram D.",  place: "Bengaluru", rating: 5, text: "I bought succulents as gifts and everyone loved them. Neat packaging and not a single broken leaf." }
+];
+
+/* ---------- Tiny DOM helpers ---------- */
+const $  = sel => document.querySelector(sel);
+const $$ = sel => Array.from(document.querySelectorAll(sel));
+
+/* =========================================================
+   SHOP STATE
+   ========================================================= */
+let activeCategory = "All";
+let searchTerm = "";
+let sortMode = "default";
+
+/* =========================================================
+   RENDER: product card (shared by Featured and Shop)
+   ========================================================= */
+function productCard(p) {
+  return `
+    <article class="product-card">
+      <div class="product-img">
+        ${imgTag(p, 600, 600)}
+        <span class="tag">${p.category}</span>
+      </div>
+      <div class="product-body">
+        <h3>${p.name}</h3>
+        <p>${p.desc}</p>
+        <div class="product-foot">
+          <span class="price">${money(p.price)}</span>
+          <button class="add-btn" data-add="${p.id}" aria-label="Add ${p.name} to cart">Add to Cart</button>
+        </div>
+      </div>
+    </article>`;
+}
+
+/* ---------- Featured section ---------- */
+function renderFeatured() {
+  $("#featuredGrid").innerHTML = PRODUCTS.filter(p => p.featured).map(productCard).join("");
+}
+
+/* ---------- Category cards (arched) ---------- */
+function renderCategories() {
+  $("#catGrid").innerHTML = CATEGORIES.map(cat => {
+    const count = PRODUCTS.filter(p => p.category === cat).length;
+    return `
+      <button class="cat-card" data-cat="${cat}" aria-label="Show ${cat}">
+        ${imgTag(byId(CATEGORY_IMG[cat]), 500, 700)}
+        <div class="cat-info"><h3>${cat}</h3><span>${count} plants</span></div>
+      </button>`;
+  }).join("");
+}
+
+/* ---------- Filter chips ---------- */
+function renderChips() {
+  $("#chips").innerHTML = ["All", ...CATEGORIES].map(cat =>
+    `<button class="chip ${cat === activeCategory ? "active" : ""}" data-chip="${cat}" aria-pressed="${cat === activeCategory}">${cat}</button>`
+  ).join("");
+}
+
+/* One place that decides whether a plant matches the chosen category and search words */
+function matches(p, cat, term) {
+  const matchCat = cat === "All" || p.category === cat;
+  const text = (p.name + " " + p.category + " " + p.desc + " " + (p.tags || "")).toLowerCase();
+  return matchCat && (!term || text.includes(term.toLowerCase()));
+}
+
+/* ---------- Shop grid: applies category + search + sort together ---------- */
+function renderShop() {
+  const term = searchTerm.trim().toLowerCase();
+
+  let list = PRODUCTS.filter(p => matches(p, activeCategory, term));
+
+  if (sortMode === "low")  list.sort((a, b) => a.price - b.price);
+  if (sortMode === "high") list.sort((a, b) => b.price - a.price);
+  if (sortMode === "name") list.sort((a, b) => a.name.localeCompare(b.name));
+
+  $("#resultInfo").textContent = `Showing ${list.length} of ${PRODUCTS.length} plants`;
+
+  $("#productGrid").innerHTML = list.length
+    ? list.map(productCard).join("")
+    : `<div class="empty" style="grid-column:1/-1">
+         <div class="big">🔍</div>
+         <h3>No plants found</h3>
+         <p>Try a different name, or clear your search and filters.</p>
+         <button class="btn btn-primary" id="resetFilters">Show all plants</button>
+       </div>`;
+}
+
+/* ---------- Reviews ---------- */
+function renderReviews() {
+  $("#reviewGrid").innerHTML = REVIEWS.map(r => {
+    const stars = "★".repeat(r.rating) + `<span class="off">${"★".repeat(5 - r.rating)}</span>`;
+    const initials = r.name.split(" ").map(w => w[0]).join("").slice(0, 2);
+    return `
+      <figure class="review" style="margin:0">
+        <div class="stars" aria-label="${r.rating} out of 5 stars">${stars}</div>
+        <blockquote>“${r.text}”</blockquote>
+        <figcaption class="reviewer">
+          <div class="avatar">${initials}</div>
+          <div><strong>${r.name}</strong><small>${r.place}</small></div>
+        </figcaption>
+      </figure>`;
+  }).join("");
+}
+
+/* =========================================================
+   FLOWER PHOTO SECTIONS: hero collage, collections, gallery, lightbox
+   ========================================================= */
+
+/* Hero collage: three flower photos beside the heading */
+function renderHero() {
+  const parts = [[8, "hc1", 520, 700], [18, "hc2", 360, 360], [9, "hc3", 380, 380]];
+  $("#heroCollage").innerHTML = parts.map(([id, cls, w, h]) => {
+    const p = byId(id);
+    return `<div class="hc ${cls}">${imgTag(p, w, h, false)}<span>${p.name}</span></div>`;
+  }).join("");
+}
+
+/* Featured collections */
+function renderCollections() {
+  $("#collectionGrid").innerHTML = COLLECTIONS.map((c, i) => {
+    const count = PRODUCTS.filter(p => matches(p, c.go.cat || "All", c.go.q || "")).length;
+    return `
+      <button class="collection" data-coll="${i}" aria-label="Shop ${c.title}">
+        ${imgTag(byId(c.img), 640, 850)}
+        <div class="c-info"><h3>${c.title}</h3><p>${c.sub} (${count} plants)</p><span class="pill">Shop collection</span></div>
+      </button>`;
+  }).join("");
+}
+
+/* Flower gallery: a mosaic of 12 flowers. Some tiles are taller/wider for a magazine feel. */
+function renderGallery() {
+  $("#galleryGrid").innerHTML = GALLERY_IDS.map((id, i) => {
+    const p = byId(id);
+    const shape = (i === 0 || i === 5 || i === 9) ? "tall" : (i === 3 ? "wide" : "");
+    return `
+      <figure class="gal-item ${shape}" data-open="${p.id}" tabindex="0" role="button" aria-label="View ${p.name}">
+        ${imgTag(p, 800, 800)}
+        <figcaption><strong>${p.name}</strong><span>${money(p.price)}</span></figcaption>
+      </figure>`;
+  }).join("");
+}
+
+/* Lightbox: enlarged photo with description and Add to Cart */
+function openLightbox(id) {
+  const p = byId(id);
+  $("#lbImg").innerHTML = imgTag(p, 900, 900, false);
+  $("#lbBody").innerHTML = `
+    <span class="tag" style="position:static;align-self:flex-start;background:var(--mint)">${p.category}</span>
+    <h3>${p.name}</h3>
+    <p>${p.desc}</p>
+    <span class="price">${money(p.price)}</span>
+    <div class="lb-actions">
+      <button class="btn btn-primary" data-add="${p.id}">Add to Cart</button>
+      <button class="btn btn-ghost" data-find="${p.name}">Find in shop</button>
+    </div>`;
+  $("#lightbox").classList.add("show");
+  $("#lightbox").setAttribute("aria-hidden", "false");
+}
+function closeLightbox() {
+  $("#lightbox").classList.remove("show");
+  $("#lightbox").setAttribute("aria-hidden", "true");
+}
+
+/* Jump to the shop with a category and/or search already applied */
+function goShop({ cat = "All", q = "" } = {}) {
+  searchTerm = q; $("#searchInput").value = q;
+  activeCategory = cat;
+  renderChips(); renderShop();
+  document.getElementById("plants").scrollIntoView({ behavior: "smooth" });
+}
+
+$("#galleryGrid").addEventListener("click", e => {
+  const tile = e.target.closest("[data-open]");
+  if (tile) openLightbox(tile.dataset.open);
+});
+$("#galleryGrid").addEventListener("keydown", e => {
+  if (e.key === "Enter" || e.key === " ") {
+    const tile = e.target.closest("[data-open]");
+    if (tile) { e.preventDefault(); openLightbox(tile.dataset.open); }
+  }
+});
+$("#collectionGrid").addEventListener("click", e => {
+  const card = e.target.closest("[data-coll]");
+  if (card) goShop(COLLECTIONS[card.dataset.coll].go);
+});
+$("#lightbox").addEventListener("click", e => {
+  if (e.target.id === "lightbox") closeLightbox();          // click on the dark backdrop
+  const find = e.target.closest("[data-find]");
+  if (find) { closeLightbox(); goShop({ q: find.dataset.find }); }
+});
+$("#lbClose").addEventListener("click", closeLightbox);
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeLightbox(); });
+
+/* =========================================================
+   SHOP INTERACTIONS (search, filters, sort)
+   ========================================================= */
+function setCategory(cat, scroll = false) {
+  activeCategory = cat;
+  renderChips();
+  renderShop();
+  if (scroll) document.getElementById("plants").scrollIntoView({ behavior: "smooth" });
+}
+
+$("#searchInput").addEventListener("input", e => { searchTerm = e.target.value; renderShop(); });
+$("#sortSelect").addEventListener("change", e => { sortMode = e.target.value; renderShop(); });
+
+$("#chips").addEventListener("click", e => {
+  const chip = e.target.closest("[data-chip]");
+  if (chip) setCategory(chip.dataset.chip);
+});
+
+$("#catGrid").addEventListener("click", e => {
+  const card = e.target.closest("[data-cat]");
+  if (card) goShop({ cat: card.dataset.cat });
+});
+
+/* "Show all plants" button inside the empty state */
+$("#productGrid").addEventListener("click", e => {
+  if (e.target.id === "resetFilters") {
+    searchTerm = ""; $("#searchInput").value = "";
+    sortMode = "default"; $("#sortSelect").value = "default";
+    setCategory("All");
+  }
+});
+
+/* =========================================================
+   SHOPPING CART (saved in localStorage)
+   cart shape: { "1": 2, "7": 1 }  ->  productId : quantity
+   ========================================================= */
+const CART_KEY = "greenleaf_cart_v1";
+const FREE_DELIVERY_AT = 999;   // free delivery on orders at or above this subtotal
+const DELIVERY_FEE = 60;
+const MAX_QTY = 20;             // most of one plant allowed per order (keeps saved data sensible)
+
+/* Load cart safely – if storage is blocked or corrupted we just start empty */
+function loadCart() {
+  try {
+    const data = JSON.parse(localStorage.getItem(CART_KEY));
+    if (data && typeof data === "object") {
+      // keep only valid products with sensible quantities
+      const clean = {};
+      for (const id in data) {
+        const qty = parseInt(data[id], 10);
+        if (PRODUCTS.some(p => p.id === Number(id)) && qty > 0) clean[id] = Math.min(qty, MAX_QTY);
+      }
+      return clean;
+    }
+  } catch (err) { /* ignore and fall through */ }
+  return {};
+}
+function saveCart() {
+  try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch (err) { /* storage unavailable */ }
+}
+
+let cart = loadCart();
+
+function addToCart(id) {
+  if ((cart[id] || 0) >= MAX_QTY) { showToast(`You can order up to ${MAX_QTY} of each plant online. Call us for bulk orders.`); return; }
+  cart[id] = (cart[id] || 0) + 1;
+  saveCart(); renderCart();
+  const p = PRODUCTS.find(x => x.id === id);
+  showToast(`${p.name} added to your cart 🌿`);
+  const badge = $("#cartCount"); badge.classList.remove("bump"); void badge.offsetWidth; badge.classList.add("bump");
+}
+function changeQty(id, delta) {
+  if (!cart[id]) return;
+  cart[id] += delta;
+  if (cart[id] > MAX_QTY) cart[id] = MAX_QTY;
+  if (cart[id] <= 0) delete cart[id];
+  saveCart(); renderCart();
+}
+function removeItem(id) { delete cart[id]; saveCart(); renderCart(); }
+function clearCart()    { cart = {}; saveCart(); renderCart(); }
+
+/* Redraws the drawer, the badge and all totals */
+function renderCart() {
+  const ids = Object.keys(cart);
+  let subtotal = 0, count = 0;
+
+  if (!ids.length) {
+    $("#cartItems").innerHTML = `<div class="cart-empty"><div class="big">🪴</div><h3>Your cart is empty</h3><p>Add a plant you love and it will appear here.</p></div>`;
+  } else {
+    $("#cartItems").innerHTML = ids.map(id => {
+      const p = PRODUCTS.find(x => x.id === Number(id));
+      const qty = cart[id];
+      subtotal += p.price * qty; count += qty;
+      return `
+        <div class="cart-item">
+          ${imgTag(p, 200, 200, false)}
+          <div>
+            <h4>${p.name}</h4>
+            <span class="unit">${money(p.price)} each</span><br />
+            <div class="qty">
+              <button data-dec="${p.id}" aria-label="Decrease quantity of ${p.name}">−</button>
+              <span>${qty}</span>
+              <button data-inc="${p.id}" aria-label="Increase quantity of ${p.name}">+</button>
+            </div>
+          </div>
+          <div class="line-end">
+            <span class="line-total">${money(p.price * qty)}</span>
+            <button class="remove" data-remove="${p.id}">Remove</button>
+          </div>
+        </div>`;
+    }).join("");
+  }
+
+  /* Totals: delivery is free once the subtotal reaches the threshold */
+  const delivery = (subtotal === 0 || subtotal >= FREE_DELIVERY_AT) ? 0 : DELIVERY_FEE;
+  $("#subTotal").textContent = money(subtotal);
+  $("#deliveryFee").textContent = subtotal === 0 ? "₹0" : (delivery === 0 ? "Free" : money(delivery));
+  $("#grandTotal").textContent = money(subtotal + delivery);
+  $("#shipNote").textContent = subtotal === 0 ? "" :
+    (delivery === 0 ? "You've unlocked free delivery 🎉" : `Add ${money(FREE_DELIVERY_AT - subtotal)} more for free delivery`);
+
+  $("#cartCount").textContent = count;
+  $("#cartFoot").style.display = ids.length ? "block" : "none";
+}
+
+/* One click listener handles every "Add to Cart" button on the page (event delegation) */
+document.addEventListener("click", e => {
+  const add = e.target.closest("[data-add]");
+  if (add) addToCart(Number(add.dataset.add));
+});
+/* Quantity controls inside the drawer */
+$("#cartItems").addEventListener("click", e => {
+  const inc = e.target.closest("[data-inc]"), dec = e.target.closest("[data-dec]"), rem = e.target.closest("[data-remove]");
+  if (inc) changeQty(inc.dataset.inc, +1);
+  if (dec) changeQty(dec.dataset.dec, -1);
+  if (rem) removeItem(rem.dataset.remove);
+});
+$("#clearCart").addEventListener("click", () => { clearCart(); showToast("Cart cleared"); });
+$("#checkoutBtn").addEventListener("click", () => openCheckout());   // opens the order form (see CHECKOUT section below)
+
+/* ---------- Open / close the cart drawer ---------- */
+function openCart() {
+  $("#cartDrawer").classList.add("open"); $("#overlay").classList.add("show");
+  $("#cartDrawer").setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+}
+function closeCart() {
+  $("#cartDrawer").classList.remove("open"); $("#overlay").classList.remove("show");
+  $("#cartDrawer").setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+}
+$("#openCart").addEventListener("click", openCart);
+$("#closeCart").addEventListener("click", closeCart);
+$("#overlay").addEventListener("click", closeCart);
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeCart(); });
+
+/* ---------- Toast message ---------- */
+let toastTimer;
+function showToast(msg) {
+  const t = $("#toast");
+  t.textContent = msg; t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove("show"), 2600);
+}
+
+/* =========================================================
+   NAVIGATION: mobile menu, header shadow, active link, back-to-top
+   ========================================================= */
+const menuToggle = $("#menuToggle"), navLinks = $("#navLinks");
+menuToggle.addEventListener("click", () => {
+  const open = navLinks.classList.toggle("open");
+  menuToggle.classList.toggle("open", open);
+  menuToggle.setAttribute("aria-expanded", open);
+});
+navLinks.addEventListener("click", e => {          // close the menu after choosing a link
+  if (e.target.tagName === "A") { navLinks.classList.remove("open"); menuToggle.classList.remove("open"); menuToggle.setAttribute("aria-expanded", "false"); }
+});
+
+/* Highlight the nav link of the section currently on screen */
+const spySections = ["home", "plants", "gallery", "about", "care", "contact"].map(id => document.getElementById(id));
+function onScroll() {
+  $("#header").classList.toggle("scrolled", window.scrollY > 20);
+  $("#toTop").classList.toggle("show", window.scrollY > 600);
+
+  const marker = window.scrollY + window.innerHeight * 0.35;
+  let current = "home";
+  spySections.forEach(sec => { if (sec.offsetTop <= marker) current = sec.id; });
+  $$("#navLinks a").forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + current));
+}
+window.addEventListener("scroll", onScroll, { passive: true });
+$("#toTop").addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+/* =========================================================
+   CONTACT FORM VALIDATION
+   ========================================================= */
+const form = $("#contactForm");
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+/* Returns true when a field is valid, and toggles its error message */
+function validateField(id, test) {
+  const value = $("#" + id).value.trim();
+  const ok = test(value);
+  $("#f-" + id).classList.toggle("invalid", !ok);
+  return ok;
+}
+const checks = {
+  name:    v => v.length >= 2,
+  email:   v => emailPattern.test(v),
+  message: v => v.length >= 10
+};
+
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  const success = $("#formSuccess"), errBox = $("#contactError"), btn = $("#contactSubmit");
+  success.classList.remove("show"); errBox.classList.remove("show"); errBox.textContent = "";
+  if (btn.disabled) return;
+
+  // run every check (don't stop at the first failure so all errors show together)
+  const results = Object.keys(checks).map(id => validateField(id, checks[id]));
+  if (!results.every(Boolean)) { form.querySelector(".invalid input, .invalid textarea").focus(); return; }
+
+  const data = { name: $("#name").value.trim(), email: $("#email").value.trim(), message: $("#message").value.trim(), status: "new" };
+  const label = btn.textContent;
+  btn.disabled = true; btn.textContent = "Sending…";
+  try {
+    const db = window.GreenLeafDB;
+    if (!db) { const err = new Error("not-loaded"); err.code = "not-loaded"; throw err; }
+    await db.saveMessage(data);       // resolves only when the database confirms it was saved
+    success.textContent = `Thank you, ${data.name}! Your message has been saved and we'll reply soon. 🌿`;
+    success.classList.add("show");
+    form.reset();
+    setTimeout(() => success.classList.remove("show"), 8000);
+  } catch (err) {
+    console.error("Message was not saved:", err);
+    errBox.textContent = dbErrorText(err, "message", MESSAGE_CONTACT);
+    errBox.classList.add("show");
+  } finally {
+    btn.disabled = false; btn.textContent = label;
+  }
+});
+/* Re-check a field as the user fixes it */
+Object.keys(checks).forEach(id => {
+  $("#" + id).addEventListener("input", () => {
+    if ($("#f-" + id).classList.contains("invalid")) validateField(id, checks[id]);
+  });
+});
+
+/* =========================================================
+   CHECKOUT & ORDER STORAGE
+
+   WHERE EACH PIECE OF DATA LIVES
+   - In this browser (localStorage): ONLY the cart, as { productId: quantity }.
+   - Online (Firebase Firestore):    the finished order (name, phone, address, plants, totals)
+                                     and contact-form messages.
+   - Nowhere:                        card numbers or any payment details. We never ask for them.
+   Customer details typed into the form are held in memory only and are NOT put in localStorage.
+   ========================================================= */
+const SHOP_PHONE = "+91 99754 84112";
+let orderBusy = false;           // true while we wait for the database (blocks double-clicks)
+let attemptOrderNumber = null;   // reused if the customer retries after a failed attempt, so duplicates are easy to spot
+
+/* Cart -> lines + totals (same delivery rule as the cart drawer) */
+function cartTotals() {
+  const lines = Object.keys(cart).filter(id => byId(id)).map(id => {
+    const p = byId(id);
+    return { id: p.id, name: p.name, price: p.price, qty: cart[id] };
+  });
+  const subtotal = lines.reduce((s, l) => s + l.price * l.qty, 0);
+  const delivery = (subtotal === 0 || subtotal >= FREE_DELIVERY_AT) ? 0 : DELIVERY_FEE;
+  return { lines, subtotal, delivery, total: subtotal + delivery };
+}
+
+/* Friendly order number such as GL-261013-A3F9C2 */
+function newOrderNumber() {
+  const d = new Date(), pad = n => String(n).padStart(2, "0");
+  let rnd = "";
+  if (window.crypto && crypto.getRandomValues) {
+    rnd = Array.from(crypto.getRandomValues(new Uint8Array(3))).map(b => b.toString(16).padStart(2, "0")).join("").toUpperCase();
+  } else {
+    rnd = Math.floor(Math.random() * 0xFFFFFF).toString(16).padStart(6, "0").toUpperCase();
+  }
+  return `GL-${String(d.getFullYear()).slice(2)}${pad(d.getMonth() + 1)}${pad(d.getDate())}-${rnd}`;
+}
+
+/* Accepts 9975484112, +91 99754 84112, 099754-84112 ... returns "+919975484112" or null */
+function normalisePhone(raw) {
+  let d = String(raw).replace(/[\s\-().]/g, "");
+  if (d.startsWith("+91")) d = d.slice(3);
+  else if (d.startsWith("91") && d.length === 12) d = d.slice(2);
+  else if (d.startsWith("0") && d.length === 11) d = d.slice(1);
+  return /^[6-9]\d{9}$/.test(d) ? "+91" + d : null;
+}
+
+/* Safety net: stop people pasting a payment card number into free-text boxes.
+   Looks for 13-19 digit numbers that pass the Luhn card-number check. */
+function luhn(num) {
+  let sum = 0, alt = false;
+  for (let i = num.length - 1; i >= 0; i--) {
+    let n = Number(num[i]);
+    if (alt) { n *= 2; if (n > 9) n -= 9; }
+    sum += n; alt = !alt;
+  }
+  return num.length >= 13 && num.length <= 19 && sum % 10 === 0;
+}
+function looksLikeCardNumber(text) {
+  const found = String(text).match(/\b\d{13,19}\b|\b\d{4}([ -])\d{4}\1\d{4}\1\d{1,7}\b/g) || [];
+  return found.some(s => luhn(s.replace(/\D/g, "")));
+}
+
+/* Field rules for the order form (re-uses validateField() from the contact form code) */
+const coChecks = {
+  coName:    v => v.length >= 2 && v.length <= 80,
+  coPhone:   v => normalisePhone(v) !== null,
+  coAddress: v => v.length >= 10 && v.length <= 300 && !looksLikeCardNumber(v),
+  coNotes:   v => v.length <= 300 && !looksLikeCardNumber(v)      // optional, so empty is fine
+};
+
+/* Turns a database error into a message a customer can understand.
+   Every message says plainly that nothing was saved. */
+function dbErrorText(err, what, contactLine) {
+  const code = err && err.code;
+  let why;
+  if (code === "not-configured")        why = "online saving hasn't been switched on for this website yet";
+  else if (code === "not-loaded")       why = "we couldn't reach the online database (please check your internet connection)";
+  else if (code === "offline")          why = "you appear to be offline";
+  else if (code === "timeout")          why = "the connection was too slow for us to confirm it";
+  else if (code === "permission-denied") why = "the database refused it";
+  else                                  why = "something went wrong while saving";
+  return `Sorry, your ${what} was NOT saved because ${why}. ${contactLine}`;
+}
+const ORDER_CONTACT   = `Your cart is still safe. Please try again, or call us on ${SHOP_PHONE} to place your order.`;
+const MESSAGE_CONTACT = `Please email rutujadabhade401@gmail.com or call ${SHOP_PHONE} instead.`;
+
+/* ---------- Open / close the checkout modal ---------- */
+function renderCheckoutSummary() {
+  const t = cartTotals();
+  $("#coSummary").innerHTML =
+    "<ul>" + t.lines.map(l => `<li><span>${l.name} × ${l.qty}</span><strong>${money(l.price * l.qty)}</strong></li>`).join("") + "</ul>" +
+    `<div class="co-row"><span>Subtotal</span><span>${money(t.subtotal)}</span></div>` +
+    `<div class="co-row"><span>Delivery</span><span>${t.delivery === 0 ? "Free" : money(t.delivery)}</span></div>` +
+    `<div class="co-row co-total"><span>Total (pay on delivery)</span><span>${money(t.total)}</span></div>`;
+}
+function openCheckout() {
+  if (!Object.keys(cart).length) { showToast("Your cart is empty. Add a plant first 🌿"); return; }
+  closeCart();
+  $("#coFormView").hidden = false; $("#coDoneView").hidden = true;
+  $("#coError").classList.remove("show");
+  renderCheckoutSummary();
+  $("#checkoutModal").classList.add("show");
+  $("#checkoutModal").setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+  setTimeout(() => $("#coName").focus(), 60);
+}
+function closeCheckout() {
+  if (orderBusy) return;                       // don't close while an order is being saved
+  $("#checkoutModal").classList.remove("show");
+  $("#checkoutModal").setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+}
+function showCoError(msg) { const b = $("#coError"); b.textContent = msg; b.classList.add("show"); }
+function setOrderBusy(on) {
+  orderBusy = on;
+  const btn = $("#coSubmit");
+  btn.disabled = on;
+  btn.textContent = on ? "Saving your order…" : "Place order";
+}
+
+/* ---------- Confirmation: called ONLY after the database says the order is saved ---------- */
+function showConfirmation(order) {
+  $("#coFormView").hidden = true; $("#coDoneView").hidden = false;
+  $("#coDoneMsg").textContent = `Thank you, ${order.customer.name}! Your order has been saved. We'll call ${order.customer.phone} to confirm delivery.`;
+  $("#coDoneNumber").textContent = "Order " + order.orderNumber;
+  $("#coDoneTotal").textContent = money(order.total);
+  const box = $("#coDoneItems");
+  box.innerHTML = "";
+  const ul = document.createElement("ul");
+  order.items.forEach(l => {
+    const li = document.createElement("li");
+    const a = document.createElement("span"); a.textContent = `${l.name} × ${l.qty}`;
+    const b = document.createElement("strong"); b.textContent = money(l.price * l.qty);
+    li.append(a, b); ul.appendChild(li);
+  });
+  box.appendChild(ul);
+}
+
+/* ---------- Submit the order ---------- */
+async function submitOrder(e) {
+  e.preventDefault();
+  if (orderBusy) return;
+  $("#coError").classList.remove("show");
+
+  // Spam-bot trap: a hidden field that only bots fill in
+  if ($("#coWebsite").value) { showCoError("Something went wrong. Please try again."); return; }
+
+  // Validate every field and show all errors together
+  const valid = Object.keys(coChecks).map(id => validateField(id, coChecks[id])).every(Boolean);
+  if (!valid) { $("#orderForm").querySelector(".invalid input, .invalid textarea").focus(); return; }
+
+  const t = cartTotals();
+  if (!t.lines.length) { showCoError("Your cart is empty. Please add a plant first."); return; }
+
+  attemptOrderNumber = attemptOrderNumber || newOrderNumber();
+  const order = {
+    orderNumber: attemptOrderNumber,
+    customer: {
+      name: $("#coName").value.trim(),
+      phone: normalisePhone($("#coPhone").value.trim()),
+      address: $("#coAddress").value.trim()
+    },
+    items: t.lines,                       // [{ id, name, price, qty }]
+    subtotal: t.subtotal, delivery: t.delivery, total: t.total,
+    paymentMethod: "Pay on delivery",     // we never collect card details
+    status: "new"
+  };
+  const notes = $("#coNotes").value.trim();
+  if (notes) order.notes = notes;
+
+  setOrderBusy(true);
+  try {
+    const db = window.GreenLeafDB;
+    if (!db) { const err = new Error("not-loaded"); err.code = "not-loaded"; throw err; }
+
+    // This promise only RESOLVES once Firestore has confirmed the write. Anything else throws.
+    await db.saveOrder(order);
+
+    // ---- Success: only now do we confirm, empty the cart and clear the form ----
+    attemptOrderNumber = null;
+    clearCart();
+    $("#orderForm").reset();
+    showConfirmation(order);
+    showToast("Order saved! 🌿");
+  } catch (err) {
+    console.error("Order was not saved:", err);
+    showCoError(dbErrorText(err, "order", ORDER_CONTACT));   // cart and form are left untouched
+  } finally {
+    setOrderBusy(false);
+  }
+}
+
+$("#orderForm").addEventListener("submit", submitOrder);
+$("#coClose").addEventListener("click", closeCheckout);
+$("#coBack").addEventListener("click", () => { closeCheckout(); openCart(); });
+$("#coDoneClose").addEventListener("click", closeCheckout);
+$("#checkoutModal").addEventListener("click", e => { if (e.target.id === "checkoutModal") closeCheckout(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeCheckout(); });
+Object.keys(coChecks).forEach(id => {      // re-check a field as the customer fixes it
+  $("#" + id).addEventListener("input", () => {
+    if ($("#f-" + id).classList.contains("invalid")) validateField(id, coChecks[id]);
+  });
+});
+
+/* Keep the cart in sync if the shop is open in two browser tabs */
+window.addEventListener("storage", e => {
+  if (e.key === CART_KEY) { cart = loadCart(); renderCart(); }
+});
+
+/* =========================================================
+   START UP: draw everything once the page loads
+   ========================================================= */
+$("#year").textContent = new Date().getFullYear();
+renderHero();
+renderCategories();
+renderCollections();
+renderFeatured();
+renderGallery();
+renderChips();
+renderShop();
+renderReviews();
+renderCart();
+onScroll();
+</script>
+<!-- =========================================================
+     FIREBASE FIRESTORE (online order storage)
+     This small module is the ONLY place that talks to the database.
+     SETUP (5 minutes, free plan): see the steps in the chat reply.
+       1. Create a Firebase project and a Firestore database.
+       2. Publish the security rules from the file  firestore.rules
+       3. Copy your web-app config into firebaseConfig below.
+     Until you do, the site still works. Orders and messages simply
+     show an honest "not saved" message instead of pretending.
+     (The firebaseConfig values are NOT passwords. Your Firestore
+     security rules are what protect the data.)
+     ========================================================= -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  // >>> STEP 3: replace every PASTE_... value with the values from Firebase (Project settings > Your apps)
+  const firebaseConfig = {
+    apiKey: "PASTE_YOUR_API_KEY",
+    authDomain: "PASTE_YOUR_PROJECT_ID.firebaseapp.com",
+    projectId: "PASTE_YOUR_PROJECT_ID",
+    storageBucket: "PASTE_YOUR_PROJECT_ID.appspot.com",
+    messagingSenderId: "PASTE_YOUR_SENDER_ID",
+    appId: "PASTE_YOUR_APP_ID"
+  };
+
+  const SAVE_TIMEOUT_MS = 15000;   // give up waiting for confirmation after 15 seconds
+  const configured = Object.values(firebaseConfig).every(v => v && !String(v).includes("PASTE_"));
+
+  let db = null;
+  if (configured) {
+    try { db = getFirestore(initializeApp(firebaseConfig)); }
+    catch (err) { console.error("GreenLeaf: Firebase failed to start:", err); }
+  } else {
+    console.warn("GreenLeaf: Firebase is not configured yet, so orders and messages cannot be saved online. Paste your firebaseConfig in index.html.");
+  }
+
+  const fail = code => { const e = new Error(code); e.code = code; return e; };
+
+  /* Saves one document and resolves ONLY after Firestore confirms it.
+     Rejects with a clear error code otherwise (not-configured, offline, timeout, permission-denied...). */
+  function saveDocument(collectionName, data) {
+    if (!configured || !db) return Promise.reject(fail("not-configured"));
+    if (navigator.onLine === false) return Promise.reject(fail("offline"));
+    const write = addDoc(collection(db, collectionName), { ...data, createdAt: serverTimestamp() });
+    const timeout = new Promise((_, reject) => setTimeout(() => reject(fail("timeout")), SAVE_TIMEOUT_MS));
+    return Promise.race([write, timeout]).then(ref => ({ id: ref.id }));
+  }
+
+  // The rest of the website calls these two functions
+  window.GreenLeafDB = {
+    configured,
+    saveOrder:   order   => saveDocument("orders", order),
+    saveMessage: message => saveDocument("messages", message)
+  };
+</script>
+</body>
+</html>
